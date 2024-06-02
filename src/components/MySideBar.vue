@@ -1,71 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const items = ref([
   {
-    label: 'Mail',
-    icon: 'ri-admin-line',
-    badge: 5,
-    items: [
-      {
-        label: 'Compose',
-        icon: 'ri-admin-line',
-        items: [
-          {
-            key: '0_1_0',
-            label: 'Member'
-          },
-          {
-            key: '0_1_1',
-            label: 'Group'
-          }
-        ]
-      },
-      {
-        label: 'Inbox',
-        icon: 'ri-admin-line',
-        badge: 5
-      },
-      {
-        label: 'Sent',
-        icon: 'ri-admin-line',
-      },
-      {
-        label: 'Trash',
-        icon: 'ri-admin-line',
-      }
-    ]
+    label: '仪表盘',
+    icon: 'pi pi-link',
+    route: '/dashboard'
   },
   {
-    label: 'Reports',
-    icon: 'ri-admin-line',
-    items: [
-      {
-        label: 'Sales',
-        icon: 'ri-admin-line',
-        badge: 3
-      },
-      {
-        label: 'Products',
-        icon: 'ri-admin-line',
-        badge: 6
-      }
-    ]
-  },
-  {
-    label: 'Profile',
-    icon: 'ri-admin-line',
-    items: [
-      {
-        label: 'Settings',
-        icon: 'ri-admin-line',
-      },
-      {
-        label: 'Privacy',
-        icon: 'ri-admin-line',
-      }
-    ]
+    label: '文章',
+    icon: 'pi pi-link',
+    route: '/articles'
   }
-]);
+])
 </script>
 
 <template>
@@ -85,16 +35,25 @@ const items = ref([
         SiteTitle
       </div>
     </div>
-    <PanelMenu :model="items" multiple class="w-full md:w-20rem">
-      <template #item="{ item }">
-        <a v-ripple class="flex items-center px-3 py-2 cursor-pointer">
-          <span :class="[item.icon, 'text-primary']" />
-          <span :class="['ml-2', { 'font-semibold': item.items }]">{{ item.label }}</span>
-          <Badge v-if="item.badge" class="ml-auto" :value="item.badge" />
-          <span v-if="item.shortcut" class="ml-auto border border-surface-200 dark:border-surface-700 rounded bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
-        </a>
-      </template>
-    </PanelMenu>
+    <div class="card flex justify-center">
+      <PanelMenu :model="items" class="w-full md:w-[20rem]" multiple>
+        <template #item="{ item }">
+          <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+            <a v-ripple class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+               :href="href" @click="navigate">
+              <span :class="item.icon" />
+              <span class="ml-2 text-color">{{ item.label }}</span>
+            </a>
+          </router-link>
+          <a v-else v-ripple class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+             :href="item.url" :target="item.target">
+            <span :class="item.icon" />
+            <span class="ml-2">{{ item.label }}</span>
+            <span v-if="item.items" class="pi pi-angle-down text-primary ml-auto" />
+          </a>
+        </template>
+      </PanelMenu>
+    </div>
   </div>
 </template>
 
