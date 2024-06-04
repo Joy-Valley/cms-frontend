@@ -14,6 +14,8 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     Column: typeof import('primevue/column')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    MarkdownEditor: typeof import('./src/components/markdown/MarkdownEditor.vue')['default']
+    MarkdownViewer: typeof import('./src/components/markdown/MarkdownViewer.vue')['default']
     Menubar: typeof import('primevue/menubar')['default']
     MyDashboardCard: typeof import('./src/components/MyDashboardCard.vue')['default']
     MyRecentArticlesCard: typeof import('./src/components/MyRecentArticlesCard.vue')['default']
