@@ -21,6 +21,7 @@
     "@bytemd/plugin-medium-zoom": "^1.21.0",
     "@bytemd/plugin-mermaid": "^1.21.0",
     "@bytemd/vue-next": "^1.21.0",
+    "axios": "^1.7.2",
     "bytemd": "^1.21.0",
     "github-slugger": "^2.0.0",
     "highlight.js": "^11.9.0",
