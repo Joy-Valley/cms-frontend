@@ -29,8 +29,10 @@
     "primevue": "^3.52.0",
     "remixicon": "^4.2.0",
     "unist-util-visit": "^5.0.0",
+    "vee-validate": "^4.13.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
