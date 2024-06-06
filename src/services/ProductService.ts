@@ -361,7 +361,7 @@ export const ProductService = {
         inventoryStatus: 'INSTOCK',
         rating: 8
       }
-    ];
+    ]
   },
 
   getProductsWithOrdersData() {
@@ -1195,27 +1195,26 @@ export const ProductService = {
           }
         ]
       }
-    ];
+    ]
   },
 
   getProductsMini() {
-    return Promise.resolve(this.getProductsData().slice(0, 5));
+    return Promise.resolve(this.getProductsData().slice(0, 5))
   },
 
   getProductsSmall() {
-    return Promise.resolve(this.getProductsData().slice(0, 10));
+    return Promise.resolve(this.getProductsData().slice(0, 10))
   },
 
   getProducts() {
-    return Promise.resolve(this.getProductsData());
+    return Promise.resolve(this.getProductsData())
   },
 
   getProductsWithOrdersSmall() {
-    return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
+    return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10))
   },
 
   getProductsWithOrders() {
-    return Promise.resolve(this.getProductsWithOrdersData());
+    return Promise.resolve(this.getProductsWithOrdersData())
   }
-};
-
+}

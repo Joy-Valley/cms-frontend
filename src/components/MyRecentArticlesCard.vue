@@ -1,29 +1,16 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { ProductService } from '@/service/ProductService'
+import { ProductService } from '@/services/ProductService'
 
 onMounted(() => {
   ProductService.getProducts().then((data) => (products.value = data))
 })
 
 const products = ref()
-const formatCurrency = (value) => {
+const formatCurrency = (value: {
+  toLocaleString: (arg0: string, arg1: { style: string; currency: string }) => any
+}) => {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-}
-const getSeverity = (product) => {
-  switch (product.inventoryStatus) {
-    case 'INSTOCK':
-      return 'success'
-
-    case 'LOWSTOCK':
-      return 'warning'
-
-    case 'OUTOFSTOCK':
-      return 'danger'
-
-    default:
-      return null
-  }
 }
 </script>
 
