@@ -6,6 +6,6 @@ import MyRecentArticlesCard from '@/components/MyRecentArticlesCard.vue'
 <template>
   <div class="w-full grid grid-cols-12 gap-4">
     <MyDashboardCard />
-    <MyRecentArticlesCard/>
+    <MyRecentArticlesCard />
   </div>
 </template>

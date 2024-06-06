@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const items = ref([
   {
@@ -21,7 +18,14 @@ const items = ref([
 <template>
   <div class="hidden lg:block fixed top-0 left-0 h-full sidebar bg-neutral-100 w-[300px]">
     <div class="flex gap-2 p-3">
-      <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-2rem">
+      <svg
+        width="35"
+        height="40"
+        viewBox="0 0 35 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-2rem"
+      >
         <path
           d="M25.87 18.05L23.16 17.45L25.27 20.46V29.78L32.49 23.76V13.53L29.18 14.73L25.87 18.04V18.05ZM25.27 35.49L29.18 31.58V27.67L25.27 30.98V35.49ZM20.16 17.14H20.03H20.17H20.16ZM30.1 5.19L34.89 4.81L33.08 12.33L24.1 15.67L30.08 5.2L30.1 5.19ZM5.72 14.74L2.41 13.54V23.77L9.63 29.79V20.47L11.74 17.46L9.03 18.06L5.72 14.75V14.74ZM9.63 30.98L5.72 27.67V31.58L9.63 35.49V30.98ZM4.8 5.2L10.78 15.67L1.81 12.33L0 4.81L4.79 5.19L4.8 5.2ZM24.37 21.05V34.59L22.56 37.29L20.46 39.4H14.44L12.34 37.29L10.53 34.59V21.05L12.42 18.23L17.45 26.8L22.48 18.23L24.37 21.05ZM22.85 0L22.57 0.69L17.45 13.08L12.33 0.69L12.05 0H22.85Z"
           fill="#000000"
@@ -31,22 +35,29 @@ const items = ref([
           fill="#000000"
         />
       </svg>
-      <div class="text-3xl font-medium">
-        SiteTitle
-      </div>
+      <div class="text-3xl font-medium">SiteTitle</div>
     </div>
     <div class="card flex justify-center">
       <PanelMenu :model="items" class="w-full md:w-[20rem]" multiple>
         <template #item="{ item }">
           <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-            <a v-ripple class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
-               :href="href" @click="navigate">
+            <a
+              v-ripple
+              class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+              :href="href"
+              @click="navigate"
+            >
               <span :class="item.icon" />
               <span class="ml-2 text-color">{{ item.label }}</span>
             </a>
           </router-link>
-          <a v-else v-ripple class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
-             :href="item.url" :target="item.target">
+          <a
+            v-else
+            v-ripple
+            class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+            :href="item.url"
+            :target="item.target"
+          >
             <span :class="item.icon" />
             <span class="ml-2">{{ item.label }}</span>
             <span v-if="item.items" class="pi pi-angle-down text-primary ml-auto" />
@@ -57,6 +68,4 @@ const items = ref([
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
