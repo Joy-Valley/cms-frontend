@@ -1,23 +1,11 @@
-import service from '../utils/service'
-
-/**
- * 登录请求接口
- * @interface LoginRequest
- * @property {string} email - 用户的电子邮件
- * @property {string} password - 用户的密码
- * @property {string} [property] - 可选的任何其他属性
- */
-export interface LoginRequest {
-  email: string
-  password: string
-  [property: string]: any
-}
+import service from '../../utils/service'
+import type { LoginRequest } from './type'
 
 /**
  * 用户服务模块
- * @module UserService
+ * @module UserAPI
  */
-export const UserService = {
+export const UserAPI = {
   /**
    * 获取用户信息
    * @function info
