@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
-import { type LoginRequest, UserService } from '@/services/UserService'
+import { UserAPI } from '@/api/user'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { LoginRequest } from '@/api/user/type'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -46,7 +47,7 @@ const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = ''
   try {
     // 调用 UserService 的 login 方法进行登录
-    const response = await UserService.login(values as LoginRequest)
+    const response = await UserAPI.login(values as LoginRequest)
     // 将返回的 accessToken、refreshToken 和 userInfo 存储到 userStore 中
     userStore.accessToken = response.data.accessToken
     userStore.refreshToken = response.data.refreshToken

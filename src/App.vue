@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import NoneLayout from '@/layout/NoneLayout.vue'
 import DefaultLayout from '@/layout/DefaultLayout.vue'
-import { UserService } from '@/services/UserService'
+import { UserAPI } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 
 // 判断用户是否登录，如果登录则获取用户信息
 if (userStore.isLogin) {
-  UserService.info()
+  UserAPI.info()
     .then((res) => {
       userStore.userInfo = res.data
     })
