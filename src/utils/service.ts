@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(
   async (config) => {
     const userStore = useUserStore()
-    if (userStore.accessToken) {
+    if (userStore.isLogin) {
       config.headers['Authorization'] = `Bearer ${userStore.accessToken}`
     }
     return config
@@ -31,12 +31,23 @@ service.interceptors.response.use(
     const userStore = useUserStore()
     if (userStore.isLogin && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-      const { data } = await axios.get(baseURL + '/api/v1/user/refresh', {
-        params: { refreshToken: userStore.refreshToken },
-        timeout: 5000
-      })
-      userStore.accessToken = data.data.accessToken
-      userStore.refreshToken = data.data.refreshToken
+      try {
+        const { data } = await axios.get(baseURL + '/api/v1/user/refresh', {
+          params: { refreshToken: userStore.refreshToken },
+          timeout: 5000
+        })
+        // 刷新成功，更新用户信息
+        userStore.accessToken = data.data.accessToken
+        userStore.refreshToken = data.data.refreshToken
+      } catch (error: any) {
+        if (error.response) {
+          if (error.response.status === 401) {
+            userStore.accessToken = ''
+            userStore.refreshToken = ''
+          }
+        }
+        return Promise.reject(error)
+      }
       return service(originalRequest)
     }
     console.error('response error: ', error) // 打印错误信息

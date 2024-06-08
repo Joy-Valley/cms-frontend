@@ -9,7 +9,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const userStore = useUserStore()
 const errorMessage = ref('')
-const remember = ref(false)
 const loading = ref(false)
 
 /**
@@ -52,12 +51,15 @@ const onSubmit = handleSubmit(async (values) => {
     userStore.accessToken = response.data.accessToken
     userStore.refreshToken = response.data.refreshToken
     userStore.userInfo = response.data.userInfo
-
     // 跳转到仪表盘页面
     router.push('/dashboard')
   } catch (error: any) {
     // 如果登录失败，将错误信息存储到 errorMessage 中
-    errorMessage.value = error.response.data.message
+    if (error.response) {
+      errorMessage.value = error.response.data.message
+    } else {
+      errorMessage.value = error.message
+    }
   }
   loading.value = false
 })
@@ -96,7 +98,12 @@ const onSubmit = handleSubmit(async (values) => {
             </small>
           </div>
           <div class="mb-4">
-            <Checkbox v-model="remember" id="remember" :binary="true" class="mr-2"></Checkbox>
+            <Checkbox
+              v-model="userStore.isRemember"
+              id="remember"
+              :binary="true"
+              class="mr-2"
+            ></Checkbox>
             <label for="remember">记住登录</label>
           </div>
           <Button
