@@ -1,23 +1,24 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { ProductService } from '@/services/ProductService'
+import { articleApi } from '@/api/article'
+import type { Data } from '@/api/article/type'
 
-onMounted(() => {
-  ProductService.getProducts().then((data) => (products.value = data))
+onMounted(async () => {
+  await articleApi
+    .list(1, 25, 'desc')
+    .then((response) => {
+      items.value = response.data
+    })
+    .catch((error) => console.error(error))
 })
 
-const products = ref()
-const formatCurrency = (value: {
-  toLocaleString: (arg0: string, arg1: { style: string; currency: string }) => any
-}) => {
-  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-}
+const items = ref<Data>()
 </script>
 
 <template>
   <Card class="col-span-12 xl:col-span-6">
     <template #content>
-      <DataTable :value="products" paginator :rows="5">
+      <DataTable v-if="items" :value="items.list" paginator :rows="5">
         <template #header>
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-xl text-surface-900 dark:text-surface-0 font-bold">最近文章</span>
@@ -26,19 +27,14 @@ const formatCurrency = (value: {
         <Column header="封面">
           <template #body="slotProps">
             <img
-              :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
-              :alt="slotProps.data.image"
+              :src="`${slotProps.data.cover_src}`"
+              :alt="slotProps.data.cover_src"
               class="w-[4rem] shadow-md rounded"
             />
           </template>
         </Column>
-        <Column field="name" header="标题"></Column>
-        <Column field="price" header="Price">
-          <template #body="slotProps">
-            {{ formatCurrency(slotProps.data.price) }}
-          </template>
-        </Column>
-        <Column field="category" header="Category"></Column>
+        <Column field="article_title" header="标题"></Column>
+        <Column field="article_description" header="简介"></Column>
       </DataTable>
     </template>
   </Card>
