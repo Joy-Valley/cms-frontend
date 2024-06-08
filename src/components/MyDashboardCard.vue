@@ -1,24 +1,30 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const items = ref([
-  { title: '文章', content: '4', icon: 'ri-article-fill' },
-  { title: '用户', content: '54', icon: 'ri-user-3-fill' },
-  { title: '评论', content: '32', icon: 'ri-message-fill' },
-  { title: '浏览量', content: '34543', icon: 'ri-eye-fill' }
-])
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  icon: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  }
+})
 </script>
 
 <template>
-  <Card v-for="(item, index) of items" :key="index" class="col-span-12 md:col-span-6 xl:col-span-3">
+  <Card>
     <template #content>
       <div>
         <div class="flex justify-between">
-          <p class="text-xl font-semibold mb-2">{{ item.title }}</p>
-          <i :class="['text-4xl', item.icon]"></i>
+          <p class="text-xl font-semibold mb-2">{{ props.title }}</p>
+          <i :class="['text-4xl', props.icon]"></i>
         </div>
         <div class="text-3xl font-medium">
-          {{ item.content }}
+          {{ props.content }}
         </div>
       </div>
     </template>
