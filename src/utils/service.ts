@@ -29,7 +29,12 @@ service.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
     const userStore = useUserStore()
-    if (userStore.isLogin && error.response.status === 401 && !originalRequest._retry) {
+    if (
+      userStore.isLogin &&
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true
       try {
         const { data } = await axios.get(baseURL + '/api/v1/user/refresh', {
