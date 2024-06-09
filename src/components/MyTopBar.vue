@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute, type RouteRecordName } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 const route = useRoute()
 
 interface MenuItem {
@@ -13,7 +13,12 @@ const home = ref({
   route: '/'
 })
 
-const items = ref<MenuItem[]>([])
+const items = ref<MenuItem[]>([
+  {
+    label: route.name?.toString(),
+    route: route.path
+  }
+])
 
 watch(route, (newRoute) => {
   // items.value = [{ label: newRoute.name?.toString(), route: newRoute.path }]
