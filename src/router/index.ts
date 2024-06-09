@@ -7,10 +7,10 @@ import { useUserStore } from '@/stores/user'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: 'dashboard' },
+    { path: '/', redirect: '/dashboard' },
     {
       path: '/dashboard',
-      name: 'dashboard',
+      name: '仪表盘',
       component: DashBoardView,
       meta: {
         layout: 'default'
@@ -18,7 +18,7 @@ const router = createRouter({
     },
     {
       path: '/articles',
-      name: 'articles',
+      name: '文章',
       component: ArticlesView,
       meta: {
         layout: 'default'
@@ -26,7 +26,7 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'login',
+      name: '登录',
       component: LoginView,
       meta: {
         layout: 'none'
