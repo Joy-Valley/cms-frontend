@@ -40,9 +40,9 @@ router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
 
   // 如果用户没有登录并且试图访问非登录页面
-  if (!userStore.isLogin && to.name !== 'login') {
+  if (!userStore.isLogin && to.path !== '/login') {
     // 重定向到登录页面
-    next({ name: 'login' })
+    next({ path: '/login' })
   } else {
     // 否则，允许他们访问
     next()
