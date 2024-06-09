@@ -1,6 +1,6 @@
 export default {
   panel: {
-    class: 'p-1 overflow-hidden border border-surface-200 dark:border-surface-700 rounded-md'
+    class: 'p-1 overflow-hidden rounded-md'
   },
   header: {
     class: ['rounded-[4px]', 'outline-none']
@@ -17,7 +17,7 @@ export default {
 
       // States
       'hover:bg-surface-100 dark:hover:bg-[rgba(255,255,255,0.03)]',
-      'hover:text-surface-900',
+      'hover:text-surface-900 border border-surface-200 dark:border-surface-700',
 
       // Transition
       'transition duration-200 ease-in-out',

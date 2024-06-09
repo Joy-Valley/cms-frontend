@@ -4,18 +4,28 @@ import { ref } from 'vue'
 const items = ref([
   {
     label: '仪表盘',
-    icon: 'pi pi-link',
+    icon: 'ri-dashboard-line',
     route: '/dashboard'
   },
   {
     label: '发布文章',
-    icon: 'pi pi-link',
+    icon: 'ri-add-circle-line',
     route: '/articles/create'
   },
   {
     label: '文章管理',
-    icon: 'pi pi-link',
+    icon: 'ri-article-line',
     route: '/articles'
+  },
+  {
+    label: '分类管理',
+    icon: 'ri-folder-2-line',
+    route: '/category'
+  },
+  {
+    label: '标签管理',
+    icon: 'ri-price-tag-3-line',
+    route: '/tag'
   }
 ])
 </script>
