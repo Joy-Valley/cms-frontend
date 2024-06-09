@@ -8,7 +8,12 @@ const items = ref([
     route: '/dashboard'
   },
   {
-    label: '文章',
+    label: '发布文章',
+    icon: 'pi pi-link',
+    route: '/articles/create'
+  },
+  {
+    label: '文章管理',
     icon: 'pi pi-link',
     route: '/articles'
   }

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import MarkdownEditor from '@/components/markdown/MarkdownEditor.vue'
+import MyArticlesList from '@/components/MyArticlesList.vue'
 </script>
 
 <template>
   <div class="w-full">
-    <MarkdownEditor />
+    <MyArticlesList />
   </div>
 </template>
