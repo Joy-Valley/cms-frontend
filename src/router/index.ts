@@ -4,6 +4,8 @@ import ArticlesView from '@/views/ArticlesView.vue'
 import LoginView from '@/views/LoginView.vue'
 import { useUserStore } from '@/stores/user'
 import ArticleCreateView from '@/views/ArticleCreateView.vue'
+import CategoryView from '@/views/CategoryView.vue'
+import TagView from '@/views/TagView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +31,22 @@ const router = createRouter({
       path: '/articles/create',
       name: '创建文章',
       component: ArticleCreateView
+    },
+    {
+      path: '/category',
+      name: '分类管理',
+      component: CategoryView,
+      meta: {
+        layout: 'default'
+      }
+    },
+    {
+      path: '/tag',
+      name: '标签管理',
+      component: TagView,
+      meta: {
+        layout: 'default'
+      }
     },
     {
       path: '/login',
