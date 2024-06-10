@@ -10,12 +10,9 @@ export default {
       // Spacing
       'p-2',
 
-      // Shape
-      'rounded-md',
-
       // Color
       'bg-surface-0 dark:bg-surface-900',
-      'border border-surface-200 dark:border-surface-700'
+      'border-b border-surface-200 dark:border-surface-700'
     ]
   },
   menu: ({ props }) => ({
@@ -56,9 +53,6 @@ export default {
   },
   content: ({ props, context }) => ({
     class: [
-      // Shape
-      'rounded-[4px]',
-
       // Colors
       'text-surface-700 dark:text-white/80',
       {

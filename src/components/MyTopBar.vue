@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useUserStore } from '@/stores/user'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
+const userStore = useUserStore()
 
 interface MenuItem {
   label: string | undefined
@@ -27,14 +29,29 @@ watch(route, (newRoute) => {
     route: record.path
   }))
 })
+
+const menu = ref()
+const userItems = ref([
+  {
+    label: '退出登录',
+    icon: 'ri-logout-box-r-line',
+    command: () => {
+      userStore.logout()
+    }
+  }
+])
+
+const toggle = (event: any) => {
+  menu.value.toggle(event)
+}
 </script>
 
 <template>
-  <div class="menubar">
+  <div class="h-[--topbar-width]">
     <Menubar>
       <template #start>
-        <div class="flex">
-          <Button icon="ri-menu-line" aria-label="Submit" />
+        <div class="flex items-center">
+          <Button class="w-10 h-10" icon="ri-menu-line" aria-label="SideBarMenu" />
           <Breadcrumb :home="home" :model="items">
             <template #item="{ item, props }">
               <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
@@ -55,7 +72,9 @@ watch(route, (newRoute) => {
           <Avatar
             image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
             shape="circle"
+            @click="toggle"
           />
+          <Menu ref="menu" id="overlay_menu" :model="userItems" :popup="true" />
         </div>
       </template>
     </Menubar>

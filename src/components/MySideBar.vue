@@ -31,8 +31,8 @@ const items = ref([
 </script>
 
 <template>
-  <div class="hidden lg:block fixed top-0 left-0 h-full sidebar bg-neutral-100 w-[300px]">
-    <div class="flex gap-2 p-3">
+  <main>
+    <div class="flex items-center gap-4 p-3">
       <svg
         width="35"
         height="40"
@@ -80,7 +80,7 @@ const items = ref([
         </template>
       </PanelMenu>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped></style>

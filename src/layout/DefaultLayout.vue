@@ -4,13 +4,13 @@ import MyTopBar from '@/components/MyTopBar.vue'
 </script>
 
 <template>
-  <main class="flex">
-    <MySideBar />
-    <div class="lg:ml-[300px] w-full">
-      <MyTopBar />
-      <div class="p-4">
-        <router-view />
-      </div>
+  <main>
+    <MySideBar
+      class="hidden lg:block fixed top-0 left-0 h-full bg-neutral-100 w-[--sidebar-width]"
+    />
+    <MyTopBar class="z-50 fixed left-0 lg:left-[--sidebar-width] top-0 right-0" />
+    <div class="lg:ml-[--sidebar-width] mt-[--topbar-height] p-4">
+      <router-view />
     </div>
   </main>
 </template>
