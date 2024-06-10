@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
   )
   const isRemember = ref<boolean>(localStorage.getItem('refreshToken') !== null)
 
-  const userInfo = ref('{}')
+  const userInfo = ref({})
 
   // 计算属性 isLogin，根据 refreshToken 是否存在来判断用户是否已登录
   const isLogin = computed(() => !!refreshToken.value)
@@ -47,5 +47,12 @@ export const useUserStore = defineStore('user', () => {
     }
   })
 
-  return { isRemember, isLogin, accessToken, refreshToken, userInfo }
+  // 退出登录
+  function logout() {
+    accessToken.value = ''
+    refreshToken.value = ''
+    userInfo.value = {}
+  }
+
+  return { logout, isRemember, isLogin, accessToken, refreshToken, userInfo }
 })

@@ -47,8 +47,7 @@ service.interceptors.response.use(
       } catch (error: any) {
         if (error.response) {
           if (error.response.status === 401) {
-            userStore.accessToken = ''
-            userStore.refreshToken = ''
+            userStore.logout()
           }
         }
         return Promise.reject(error)
