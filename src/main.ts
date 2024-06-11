@@ -2,7 +2,8 @@ import './assets/css/main.css'
 import 'primeicons/primeicons.css'
 //导入remixicon
 import 'remixicon/fonts/remixicon.css'
-import Aura from '@/presets/aura' //import preset
+import Aura from '@/presets/aura' //import preset]
+import { zh_CN } from '@/config/locale'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -17,7 +18,8 @@ app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
   unstyled: true,
-  pt: Aura
+  pt: Aura,
+  locale: zh_CN
 })
 
 app.mount('#app')

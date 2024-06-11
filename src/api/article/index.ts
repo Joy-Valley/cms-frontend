@@ -18,12 +18,13 @@ export const articleApi = {
    * @function list
    * @returns {Promise} 返回一个Promise，其解析为文章列表的响应
    */
-  list(pageNo: number, pageSize: number, sort: string): Promise<any> {
+  list(pageNo: number, pageSize: number, sort: string, lazyParams: string): Promise<any> {
     return service.get('/api/v1/article/list', {
       params: {
         pageNo,
         pageSize,
-        sort
+        sort,
+        lazyParams
       }
     })
   }
