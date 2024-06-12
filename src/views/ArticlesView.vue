@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import MyArticlesList from '@/components/MyArticlesList.vue'
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="w-full">

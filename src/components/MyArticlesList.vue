@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { articleApi } from '@/api/article'
 
-const items = ref()
+const items = ref({ list: [] })
 
 import { FilterMatchMode } from 'primevue/api'
 
@@ -52,7 +52,7 @@ onMounted(() => {
 
   lazyParams.value = {
     first: 0,
-    rows: 10,
+    rows: rows.value,
     sortField: null,
     sortOrder: null,
     filters: filters.value
@@ -61,6 +61,7 @@ onMounted(() => {
   loadLazyData()
 })
 const first = ref(0)
+const rows = ref(10)
 const loading = ref(false)
 const totalRecords = ref(0)
 const lazyParams = ref()
@@ -69,7 +70,7 @@ const loadLazyData = async () => {
   loading.value = true
   lazyParams.value = { ...lazyParams.value, first: event?.first || first.value }
   await articleApi
-    .list(lazyParams.value.page + 1 || 1, 5, 'desc', JSON.stringify(lazyParams.value))
+    .list(lazyParams.value.page + 1 || 1, rows.value, 'desc', JSON.stringify(lazyParams.value))
     .then((response) => {
       items.value = response.data
       totalRecords.value = response.data.total
@@ -103,10 +104,9 @@ const onFilter = (event) => {
     removableSort
     v-model:filters="filters"
     v-model:selection="selectedCustomers"
-    v-if="items"
     :value="items.list"
     paginator
-    :rows="5"
+    :rows="rows"
     filterDisplay="menu"
     dataKey="article_id"
   >
