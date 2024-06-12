@@ -1,5 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="w-full">标签管理</div>
+  <div class="w-full">
+    <MyTagList />
+  </div>
 </template>
