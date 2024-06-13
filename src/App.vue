@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Toast from 'primevue/toast'
 import NoneLayout from '@/layout/NoneLayout.vue'
 import DefaultLayout from '@/layout/DefaultLayout.vue'
 import { UserAPI } from '@/api/user'
@@ -19,6 +20,7 @@ if (userStore.isLogin) {
 </script>
 
 <template>
+  <Toast />
   <component :is="$route.meta.layout == 'none' ? NoneLayout : DefaultLayout" />
 </template>
 
