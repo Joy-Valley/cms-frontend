@@ -15,8 +15,10 @@ declare module 'vue' {
     Checkbox: typeof import('primevue/checkbox')['default']
     Chips: typeof import('primevue/chips')['default']
     Column: typeof import('primevue/column')['default']
+    ContextMenu: typeof import('primevue/contextmenu')['default']
     copy: typeof import('./src/components/MyCategoryList copy.vue')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
     InputGroup: typeof import('primevue/inputgroup')['default']
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
@@ -39,9 +41,11 @@ declare module 'vue' {
     PanelMenu: typeof import('primevue/panelmenu')['default']
     Password: typeof import('primevue/password')['default']
     ProgressBar: typeof import('primevue/progressbar')['default']
+    RadioButton: typeof import('primevue/radiobutton')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Slider: typeof import('primevue/slider')['default']
     Tag: typeof import('primevue/tag')['default']
+    Textarea: typeof import('primevue/textarea')['default']
   }
 }
