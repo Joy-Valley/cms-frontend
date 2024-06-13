@@ -127,6 +127,7 @@ const onFilter = (event) => {
             <InputText
               @change="onFilter()"
               @keydown.enter="onFilter()"
+              v-model="filters.global.value"
               placeholder="关键字搜索"
               class="pl-10 font-normal"
             />
