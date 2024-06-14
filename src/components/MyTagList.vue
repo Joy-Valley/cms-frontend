@@ -275,7 +275,7 @@ initFilters()
               <InputText
                 @change="onFilter()"
                 @keydown.enter="onFilter()"
-                placeholder="关键字搜索"
+                placeholder="搜索关键字"
                 class="pl-10 font-normal"
               />
             </span>
@@ -292,7 +292,7 @@ initFilters()
             v-model="filterModel.value"
             type="text"
             class="p-column-filter"
-            placeholder="Search by name"
+            placeholder="搜索关键字"
           />
         </template>
         <template #filterclear="{ filterModel, filterCallback }">
@@ -305,7 +305,7 @@ initFilters()
             v-model="filterModel.value"
             type="text"
             class="p-column-filter"
-            placeholder="Search by name"
+            placeholder="搜索关键字"
           />
         </template>
       </Column>
@@ -315,7 +315,7 @@ initFilters()
             v-model="filterModel.value"
             type="text"
             class="p-column-filter"
-            placeholder="Search by name"
+            placeholder="搜索关键字"
           />
         </template>
       </Column>

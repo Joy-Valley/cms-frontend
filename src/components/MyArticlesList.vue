@@ -128,7 +128,7 @@ const onFilter = (event) => {
               @change="onFilter()"
               @keydown.enter="onFilter()"
               v-model="filters.global.value"
-              placeholder="关键字搜索"
+              placeholder="搜索关键字"
               class="pl-10 font-normal"
             />
           </span>
@@ -158,7 +158,7 @@ const onFilter = (event) => {
           v-model="filterModel.value"
           type="text"
           class="p-column-filter"
-          placeholder="Search by name"
+          placeholder="搜索关键字"
         />
       </template>
     </Column>
@@ -168,7 +168,7 @@ const onFilter = (event) => {
           v-model="filterModel.value"
           type="text"
           class="p-column-filter"
-          placeholder="Search by name"
+          placeholder="搜索关键字"
         />
       </template>
     </Column>
@@ -217,7 +217,7 @@ const onFilter = (event) => {
           v-model="filterModel.value"
           type="text"
           class="p-column-filter"
-          placeholder="Search by name"
+          placeholder="搜索关键字"
         />
       </template>
     </Column>
@@ -230,7 +230,7 @@ const onFilter = (event) => {
           v-model="filterModel.value"
           type="text"
           class="p-column-filter"
-          placeholder="Search by name"
+          placeholder="搜索关键字"
         />
       </template>
     </Column>
@@ -247,7 +247,7 @@ const onFilter = (event) => {
           v-model="filterModel.value"
           type="text"
           class="p-column-filter"
-          placeholder="Search by name"
+          placeholder="搜索关键字"
         />
       </template>
     </Column>
