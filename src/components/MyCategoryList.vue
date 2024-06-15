@@ -2,9 +2,11 @@
 import { ref, onMounted } from 'vue'
 import { CategoryAPI } from '@/api/category'
 import { useToast } from 'primevue/usetoast'
-import { FilterMatchMode } from 'primevue/api'
+import { useConfirm } from 'primevue/useconfirm'
+import { FilterMatchMode } from '@primevue/core/api'
 
 const toast = useToast() // useToast() 是 PrimeVue 提供的API
+const confirm = useConfirm()
 
 //
 // =====================================================
@@ -124,30 +126,24 @@ const onSort = (event) => {
 // ====开始右键菜单功能
 // =====================================================
 const cm = ref()
+const contextMenuSelection = ref(null) //右键菜单选中的数据
 //右键菜单选项
-const menuModel = ref([
-  { label: '删除', icon: 'pi ri-delete-bin-2-fill', command: () => deleteSelect(selectedItems) }
-])
+const menuModel = ref([])
 // 右键菜单事件
 const onRowContextMenu = (event) => {
+  // 如果selectedItems中没有event.data
+  if (!selectedItems.value.find((item) => item.category_id === event.data.category_id)) {
+    selectedItems.value = [event.data]
+  }
+  menuModel.value = [
+    {
+      label: `删除 ${selectedItems.value.length} 条数据`,
+      icon: 'pi ri-delete-bin-2-fill',
+      command: () => deleteItems(selectedItems.value),
+      class: 'context-menu-red-500'
+    }
+  ]
   cm.value.show(event.originalEvent)
-}
-
-// 删除选中的数据
-const deleteSelect = () => {
-  CategoryAPI.remove(selectedItems.value.map((item) => item.category_id))
-    .then(() => {
-      toast.add({ severity: 'success', summary: '成功', detail: '删除成功', life: 3000 })
-      loadLazyData()
-    })
-    .catch((error) => {
-      toast.add({
-        severity: 'error',
-        summary: '错误',
-        detail: (error.response && error.response.data.message) || error.message,
-        life: 3000
-      })
-    })
 }
 
 // =====================================================
@@ -227,6 +223,49 @@ const addItem = () => {
 // =====================================================
 //
 
+//
+// =====================================================
+// ====开始删除项目功能
+// =====================================================
+
+// 删除多条数据
+const deleteItems = (items) => {
+  confirm.require({
+    message: `你确定要删除 ${items.length} 条数据吗？`,
+    header: '确认删除？',
+    icon: 'pi pi-info-circle',
+    rejectProps: {
+      label: '取消',
+      severity: 'secondary',
+      outlined: true
+    },
+    acceptProps: {
+      label: '删除',
+      severity: 'danger'
+    },
+    accept: () => {
+      CategoryAPI.removeList(items.map((item) => item.category_id))
+        .then(() => {
+          toast.add({ severity: 'success', summary: '成功', detail: '删除成功', life: 3000 })
+          loadLazyData()
+        })
+        .catch((error) => {
+          toast.add({
+            severity: 'error',
+            summary: '错误',
+            detail: (error.response && error.response.data.message) || error.message,
+            life: 3000
+          })
+        })
+    }
+  })
+}
+
+// =====================================================
+// ====结束删除项目功能
+// =====================================================
+//
+
 // 格式化日期
 const formatDate = (dateString) => {
   const date = new Date(dateString)
@@ -239,7 +278,7 @@ initFilters()
 
 <template>
   <div>
-    <ContextMenu v-if="selectedItems.length" ref="cm" :model="menuModel" />
+    <ContextMenu ref="cm" :model="menuModel" />
     <DataTable
       lazy
       :first="first"
@@ -256,7 +295,15 @@ initFilters()
       :rows="rows"
       filterDisplay="menu"
       dataKey="category_id"
+      contextMenu
+      v-model:contextMenuSelection="contextMenuSelection"
       @rowContextmenu="onRowContextMenu"
+      resizableColumns
+      columnResizeMode="fit"
+      show-gridlines
+      selectionMode="multiple"
+      metaKeySelection
+      highlightOnSelect
     >
       <template #header>
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -272,12 +319,19 @@ initFilters()
               <i
                 class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
               />
-              <InputText
-                @change="onFilter()"
-                @keydown.enter="onFilter()"
-                placeholder="搜索关键字"
-                class="pl-10 font-normal"
-              />
+
+              <IconField>
+                <InputIcon>
+                  <i class="pi pi-search" />
+                </InputIcon>
+                <InputText
+                  @change="onFilter()"
+                  @keydown.enter="onFilter()"
+                  placeholder="搜索关键字"
+                  v-model="filters.global.value"
+                  class="pl-10 font-normal"
+                />
+              </IconField>
             </span>
             <Button label="新建分类" icon="pi pi-plus-circle" @click="addItemDialog = true" />
           </div>
@@ -285,7 +339,6 @@ initFilters()
       </template>
       <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
       <Column field="category_id" header="ID" sortable> </Column>
-
       <Column field="category_name" header="名称" sortable :showFilterMatchModes="false">
         <template #filter="{ filterModel }">
           <InputText
@@ -294,9 +347,6 @@ initFilters()
             class="p-column-filter"
             placeholder="搜索关键字"
           />
-        </template>
-        <template #filterclear="{ filterModel, filterCallback }">
-          <Button label="清除" text @click="clearFieldFilter(filterModel, filterCallback)" />
         </template>
       </Column>
       <Column field="category_description" header="简介" sortable :showFilterMatchModes="false">
@@ -361,9 +411,10 @@ initFilters()
       <Column header="操作">
         <template #body="slotProps">
           <Button
-            class="w-8 h-8"
+            text
+            color="primary"
             type="button"
-            icon="ri-edit-fill"
+            icon="ri-pencil-line"
             rounded
             @click="editItem(slotProps.data)"
           />

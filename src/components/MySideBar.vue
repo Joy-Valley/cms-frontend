@@ -53,7 +53,7 @@ const items = ref([
       <div class="text-3xl font-medium">SiteTitle</div>
     </div>
     <div class="card flex justify-center">
-      <PanelMenu :model="items" class="w-full md:w-[20rem]" multiple>
+      <PanelMenu :model="items" class="w-full md:w-[20rem] gap-1" multiple>
         <template #item="{ item }">
           <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
             <a

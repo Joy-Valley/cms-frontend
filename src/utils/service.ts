@@ -37,7 +37,7 @@ service.interceptors.response.use(
     ) {
       originalRequest._retry = true
       try {
-        const { data } = await axios.get(baseURL + '/api/v1/user/refresh', {
+        const { data } = await axios.post(baseURL + '/api/v1/auth/refreshToken', {
           params: { refreshToken: userStore.refreshToken },
           timeout: 5000
         })

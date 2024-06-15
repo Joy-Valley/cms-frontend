@@ -47,8 +47,8 @@ const toggle = (event: any) => {
 </script>
 
 <template>
-  <div class="h-[--topbar-width]">
-    <Menubar>
+  <div>
+    <Menubar class="h-[--topbar-height] rounded-none border-0 shadow">
       <template #start>
         <div class="flex items-center">
           <Button class="w-10 h-10" icon="ri-menu-line" aria-label="SideBarMenu" />

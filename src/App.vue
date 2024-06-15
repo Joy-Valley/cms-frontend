@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Toast from 'primevue/toast'
+import ConfirmDialog from 'primevue/confirmdialog'
 import NoneLayout from '@/layout/NoneLayout.vue'
 import DefaultLayout from '@/layout/DefaultLayout.vue'
 import { UserAPI } from '@/api/user'
@@ -21,6 +22,7 @@ if (userStore.isLogin) {
 
 <template>
   <Toast />
+  <ConfirmDialog></ConfirmDialog>
   <component :is="$route.meta.layout == 'none' ? NoneLayout : DefaultLayout" />
 </template>
 

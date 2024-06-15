@@ -41,12 +41,21 @@ export const TagAPI = {
     })
   },
   /**
+   * 通过id删除标签
+   * @function removeOne
+   * @param {number} id
+   * @returns {Promise<any>} 返回一个Promise，其解析为删除标签的响应
+   */
+  removeOne(id: number): Promise<any> {
+    return service.post(`/api/v1/article/tag/remove/${id}`)
+  },
+  /**
    * 通过数组删除标签
-   * @function remove
+   * @function removeList
    * @param {[id: number]} ids
    * @returns {Promise<any>} 返回一个Promise，其解析为删除标签的响应
    */
-  remove(ids: [id: number]): Promise<any> {
+  removeList(ids: [id: number]): Promise<any> {
     return service.post(`/api/v1/article/tag/remove`, {
       ids
     })

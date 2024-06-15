@@ -12,7 +12,7 @@ export const UserAPI = {
    * @returns {Promise} 返回一个Promise，其解析为用户信息的响应
    */
   info(): Promise<any> {
-    return service.get('/api/v1/user/info')
+    return service.get('/api/v1/user/userInfo')
   },
 
   /**
@@ -22,7 +22,7 @@ export const UserAPI = {
    * @returns {Promise} 返回一个Promise，其解析为登录的响应
    */
   login(data: LoginRequest): Promise<any> {
-    return service.post('/api/v1/user/login', data)
+    return service.post('/api/v1/auth/login', data)
   },
 
   /**
@@ -31,6 +31,6 @@ export const UserAPI = {
    * @returns {Promise} 返回一个Promise，其解析为刷新的响应
    */
   refresh(): Promise<any> {
-    return service.get('/api/v1/user/refresh')
+    return service.post('/api/v1/auth/refreshToken')
   }
 }
