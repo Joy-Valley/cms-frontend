@@ -37,16 +37,17 @@ service.interceptors.response.use(
     ) {
       originalRequest._retry = true
       try {
-        const { data } = await axios.post(baseURL + '/api/v1/auth/refreshToken', {
-          params: { refreshToken: userStore.refreshToken },
-          timeout: 5000
-        })
+        const { data } = await axios.post(
+          baseURL + '/api/v1/auth/refreshToken',
+          { refreshToken: userStore.refreshToken },
+          { timeout: 5000 }
+        )
         // 刷新成功，更新用户信息
         userStore.accessToken = data.data.accessToken
         userStore.refreshToken = data.data.refreshToken
       } catch (error: any) {
         if (error.response) {
-          if (error.response.status === 401) {
+          if (error.response.status === 400) {
             userStore.logout()
           }
         }

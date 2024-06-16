@@ -23,14 +23,5 @@ export const UserAPI = {
    */
   login(data: LoginRequest): Promise<any> {
     return service.post('/api/v1/auth/login', data)
-  },
-
-  /**
-   * 刷新用户信息
-   * @function refresh
-   * @returns {Promise} 返回一个Promise，其解析为刷新的响应
-   */
-  refresh(): Promise<any> {
-    return service.post('/api/v1/auth/refreshToken')
   }
 }
