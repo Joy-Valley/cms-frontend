@@ -96,14 +96,6 @@ const clearFilter = () => {
   onFilter()
 }
 
-const clearFieldFilter = (filterModel, filterCallback) => {
-  filterModel.constraints.forEach((item) => {
-    item.value = null
-  })
-  filterCallback()
-  onFilter()
-}
-
 // 筛选事件
 const onFilter = (event) => {
   lazyParams.value.filters = filters.value

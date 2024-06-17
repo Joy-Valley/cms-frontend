@@ -1,10 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { articleApi } from '@/api/article'
-import { useToast } from 'primevue/usetoast'
 import { FilterMatchMode } from '@primevue/core/api'
-
-const toast = useToast() // useToast() 是 PrimeVue 提供的API
 
 //
 // =====================================================
