@@ -66,3 +66,14 @@ export interface Tag {
   update_date: string
   [property: string]: any
 }
+
+export interface CreateRequest {
+  categoryIds: number[]
+  content: string
+  coverSrc?: string
+  description: string
+  publicDate: string | Date
+  tagIds: number[]
+  title: string
+  [property: string]: any
+}

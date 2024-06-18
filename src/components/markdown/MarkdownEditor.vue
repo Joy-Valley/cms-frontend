@@ -38,16 +38,15 @@ const plugins: BytemdPlugin[] = [
   mermaid({ locale: mermaidZhHans })
 ]
 
-const value = ref('')
+const model = defineModel<string>({ default: '' })
 
 const handleChange = (v: string) => {
-  console.log(v)
-  value.value = v
+  model.value = v
 }
 </script>
 
 <template>
-  <Editor :locale="byteZh" :plugins="plugins" :value="value" @change="handleChange" />
+  <Editor :locale="byteZh" :plugins="plugins" :value="model" @change="handleChange" />
 </template>
 
 <style lang="scss">
