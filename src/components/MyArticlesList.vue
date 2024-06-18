@@ -31,8 +31,8 @@ onMounted(() => {
   lazyParams.value = {
     first: 0,
     rows: rows.value,
-    sortField: null,
-    sortOrder: null,
+    sortField: 'article_id',
+    sortOrder: -1,
     filters: filters.value
   } // 初始化分页参数
 
