@@ -11,15 +11,25 @@ export const CategoryAPI = {
    * @param {number} pageNo - 页码
    * @param {number} pageSize - 每页数量
    * @param {string} sort - 排序方式
-   * @param {string} lazyParams - 懒加载参数
    * @returns {Promise<any>} 返回一个Promise，其解析为分类列表的响应
    */
-  list(pageNo: number, pageSize: number, sort: string, lazyParams: string): Promise<any> {
+  list(pageNo: number, pageSize: number, sort: string): Promise<any> {
     return service.get('/api/v1/article/category/list', {
       params: {
         pageNo,
         pageSize,
-        sort,
+        sort
+      }
+    })
+  },
+  /**
+   * 查询分类列表
+   * @function query
+   * @returns {Promise} 返回一个Promise，其解析为文章列表的响应
+   */
+  query(lazyParams: string): Promise<any> {
+    return service.get('/api/v1/article/category/query', {
+      params: {
         lazyParams
       }
     })
