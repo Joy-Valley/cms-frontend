@@ -52,7 +52,7 @@ onMounted(() => {
 // ====开始分页相关
 // =====================================================
 const first = ref(0)
-const rows = ref(25) //每页显示数量
+const rows = ref(15) //每页显示数量
 const loading = ref(false) //加载状态
 const totalRecords = ref(0) //总记录数
 const lazyParams = ref() //分页参数
@@ -280,7 +280,7 @@ initFilters()
       :value="items.list"
       paginator
       :rows="rows"
-      :rowsPerPageOptions="[5, 10, 20, 50]"
+      :rowsPerPageOptions="[5, 15, 25, 50]"
       filterDisplay="menu"
       dataKey="category_id"
       contextMenu
@@ -400,6 +400,7 @@ initFilters()
         <template #body="slotProps">
           <Button
             text
+            class="w-5 h-5"
             color="primary"
             type="button"
             icon="ri-pencil-line"
