@@ -214,6 +214,7 @@ initFilters()
       :value="items.list"
       paginator
       :rows="rows"
+      :rowsPerPageOptions="[5, 10, 20, 50]"
       filterDisplay="menu"
       dataKey="article_id"
       contextMenu

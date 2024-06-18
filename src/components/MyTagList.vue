@@ -280,6 +280,7 @@ initFilters()
       :value="items.list"
       paginator
       :rows="rows"
+      :rowsPerPageOptions="[5, 10, 20, 50]"
       filterDisplay="menu"
       dataKey="tag_id"
       contextMenu
