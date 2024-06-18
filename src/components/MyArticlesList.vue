@@ -1,7 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { articleApi } from '@/api/article'
+import { useToast } from 'primevue/usetoast'
+import { useConfirm } from 'primevue/useconfirm'
+
 import { FilterMatchMode } from '@primevue/core/api'
+
+const toast = useToast() // useToast() 是 PrimeVue 提供的API
+const confirm = useConfirm()
 
 //
 // =====================================================
@@ -89,14 +95,6 @@ const clearFilter = () => {
   onFilter()
 }
 
-const clearFieldFilter = (filterModel, filterCallback) => {
-  filterModel.constraints.forEach((item) => {
-    item.value = null
-  })
-  filterCallback()
-  onFilter()
-}
-
 // 筛选事件
 const onFilter = (event) => {
   lazyParams.value.filters = filters.value
@@ -119,22 +117,73 @@ const onSort = (event) => {
 // ====开始右键菜单功能
 // =====================================================
 const cm = ref()
+const contextMenuSelection = ref(null) //右键菜单选中的数据
 //右键菜单选项
-const menuModel = ref([
-  { label: '删除', icon: 'pi ri-delete-bin-2-fill', command: () => deleteSelect(selectedItems) }
-])
+const menuModel = ref([])
 // 右键菜单事件
 const onRowContextMenu = (event) => {
+  // 如果selectedItems中没有event.data
+  if (!selectedItems.value.find((item) => item.article_id === event.data.article_id)) {
+    selectedItems.value = [event.data]
+  }
+  menuModel.value = [
+    {
+      label: `删除 ${selectedItems.value.length} 条数据`,
+      icon: 'pi ri-delete-bin-2-fill',
+      command: () => deleteItems(selectedItems.value),
+      class: 'context-menu-red-500'
+    }
+  ]
   cm.value.show(event.originalEvent)
-}
-
-// 删除选中的数据
-const deleteSelect = () => {
-  console.log('deleteSelect')
 }
 
 // =====================================================
 // ====结束右键菜单
+// =====================================================
+//
+
+//
+// =====================================================
+// ====开始删除项目功能
+// =====================================================
+
+// 删除多条数据
+const deleteItems = (items) => {
+  confirm.require({
+    message: `你确定要删除 ${items.length} 条数据吗？`,
+    header: '确认删除？',
+    icon: 'pi pi-info-circle',
+    rejectProps: {
+      label: '取消',
+      severity: 'secondary',
+      outlined: true
+    },
+    acceptProps: {
+      label: '删除',
+      severity: 'danger'
+    },
+    accept: () => {
+      articleApi
+        .removeList(items.map((item) => item.article_id))
+        .then(() => {
+          toast.add({ severity: 'success', summary: '成功', detail: '删除成功', life: 3000 })
+          selectedItems.value = []
+          loadLazyData()
+        })
+        .catch((error) => {
+          toast.add({
+            severity: 'error',
+            summary: '错误',
+            detail: (error.response && error.response.data.message) || error.message,
+            life: 3000
+          })
+        })
+    }
+  })
+}
+
+// =====================================================
+// ====结束删除项目功能
 // =====================================================
 //
 
@@ -150,7 +199,7 @@ initFilters()
 
 <template>
   <div>
-    <ContextMenu v-if="selectedItems.length" ref="cm" :model="menuModel" />
+    <ContextMenu ref="cm" :model="menuModel" />
     <DataTable
       lazy
       :first="first"
@@ -167,9 +216,15 @@ initFilters()
       :rows="rows"
       filterDisplay="menu"
       dataKey="article_id"
+      contextMenu
+      v-model:contextMenuSelection="contextMenuSelection"
       @rowContextmenu="onRowContextMenu"
       resizableColumns
       columnResizeMode="fit"
+      show-gridlines
+      selectionMode="multiple"
+      metaKeySelection
+      highlightOnSelect
     >
       <template #header>
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -338,9 +393,11 @@ initFilters()
       <Column header="操作">
         <template #body="slotProps">
           <Button
-            class="w-8 h-8"
+            text
+            class="h-5 w-5"
+            color="primary"
             type="button"
-            icon="ri-edit-fill"
+            icon="ri-pencil-line"
             rounded
             @click="editItem(slotProps.data)"
           />
