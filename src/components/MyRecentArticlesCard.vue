@@ -18,7 +18,7 @@ const items = ref<Data>()
 <template>
   <Card class="col-span-12 xl:col-span-6">
     <template #content>
-      <DataTable v-if="items" :value="items.list" paginator :rows="5">
+      <DataTable v-if="items" :value="items.list" paginator :rows="7">
         <template #header>
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-xl text-surface-900 dark:text-surface-0 font-bold">最近文章</span>
@@ -34,7 +34,13 @@ const items = ref<Data>()
           </template>
         </Column>
         <Column field="article_title" header="标题"></Column>
-        <Column field="article_description" header="简介"></Column>
+        <Column field="article_description" header="简介">
+          <template #body="{ data }">
+            <span class="line-clamp-2">
+              {{ data.article_description }}
+            </span>
+          </template>
+        </Column>
       </DataTable>
     </template>
   </Card>
