@@ -285,7 +285,13 @@ initFilters()
           />
         </template>
       </Column>
-      <Column field="article_description" header="简介" sortable :showFilterMatchModes="false">
+      <Column
+        field="article_description"
+        header="简介"
+        sortable
+        :showFilterMatchModes="false"
+        class="max-w-[400px]"
+      >
         <template #body="{ data }">
           <span class="line-clamp-1">{{ data.article_description }}</span>
         </template>
@@ -357,7 +363,9 @@ initFilters()
       </Column>
       <Column field="tags" header="标签" sortable :showFilterMatchModes="false" class="min-w-32">
         <template #body="{ data }">
-          <Tag v-for="tag in data.tags" :key="tag.tag_id" :value="tag.tag_name" />
+          <div class="flex gap-2">
+            <Tag v-for="tag in data.tags" :key="tag.tag_id" :value="tag.tag_name" />
+          </div>
         </template>
         <template #filter="{ filterModel }">
           <InputText
@@ -376,11 +384,13 @@ initFilters()
         class="min-w-32"
       >
         <template #body="{ data }">
-          <Tag
-            v-for="categories in data.categories"
-            :key="categories.category_id"
-            :value="categories.category_name"
-          />
+          <div class="flex gap-2">
+            <Tag
+              v-for="categories in data.categories"
+              :key="categories.category_id"
+              :value="categories.category_name"
+            />
+          </div>
         </template>
         <template #filter="{ filterModel }">
           <InputText
