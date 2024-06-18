@@ -16,7 +16,6 @@ import byteZh from 'bytemd/locales/zh_Hans.json'
 import gfmZhHans from '@bytemd/plugin-gfm/locales/zh_Hans.json'
 import mermaidZhHans from '@bytemd/plugin-mermaid/locales/zh_Hans.json'
 import 'bytemd/dist/index.css'
-import { ref } from 'vue'
 
 const plugins: BytemdPlugin[] = [
   gfm({ locale: gfmZhHans }),
