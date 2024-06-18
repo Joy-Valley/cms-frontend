@@ -19,12 +19,7 @@ const selectedItems = ref([]) //选中的数据
 const loadLazyData = async (event) => {
   loading.value = true
   lazyParams.value = { ...lazyParams.value, first: event?.first || first.value }
-  await TagAPI.list(
-    lazyParams.value.page + 1 || 1,
-    rows.value,
-    'asc',
-    JSON.stringify(lazyParams.value)
-  )
+  await TagAPI.query(JSON.stringify(lazyParams.value))
     .then((response) => {
       items.value = response.data
       totalRecords.value = response.data.total
