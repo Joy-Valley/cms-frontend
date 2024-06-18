@@ -15,7 +15,7 @@ const loadLazyData = async (event) => {
   loading.value = true
   lazyParams.value = { ...lazyParams.value, first: event?.first || first.value }
   await articleApi
-    .list(lazyParams.value.page + 1 || 1, rows.value, 'desc', JSON.stringify(lazyParams.value))
+    .query(JSON.stringify(lazyParams.value))
     .then((response) => {
       items.value = response.data
       totalRecords.value = response.data.total
