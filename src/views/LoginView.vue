@@ -84,15 +84,15 @@ const onSubmit = handleSubmit(async (values) => {
               {{ errors.email }}
             </small>
           </div>
-          <div class="mb-4">
+          <div class="mb-4 w-full">
             <label for="password1" class="block text-900 font-medium mb-2">密码</label>
             <Password
               v-model="password"
               v-bind="passwordAttrs"
               class="w-full"
-              :invalid="errors.password != null"
-              toggleMask
               :feedback="false"
+              inputClass="w-full"
+              :invalid="errors.password != null"
             />
             <small id="password-help" class="p-error">
               {{ errors.password }}
