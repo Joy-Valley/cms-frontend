@@ -1,8 +1,8 @@
-/* color palette from <https://github.com/vuejs/theme> */
-
 :root {
   --sidebar-width: 15rem; /* 侧边栏宽度240px */
   --topbar-height: 4rem; /* 顶部导航栏高度64px */
+  --p-drawer-background: #fff; /* 侧边栏背景色 */
+  --p-drawer-color: #333; /* 侧边栏文字颜色 */
 }
 
 body {

@@ -4,6 +4,8 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const userStore = useUserStore()
+const model = defineModel<boolean>({ default: true })
+const isExpandedSidebarDrawer = defineModel<boolean>('isExpandedSidebarDrawer', { default: false })
 
 interface MenuItem {
   label: string | undefined
@@ -44,41 +46,55 @@ const userItems = ref([
 const toggle = (event: any) => {
   menu.value.toggle(event)
 }
+const showSidebar = () => {
+  if (window.innerWidth < 1024) {
+    isExpandedSidebarDrawer.value = true
+  } else {
+    model.value = !model.value
+  }
+}
 </script>
 
 <template>
-  <div>
-    <Menubar class="h-[--topbar-height] rounded-none border-0 shadow">
-      <template #start>
-        <div class="flex items-center">
-          <Button class="w-10 h-10" icon="ri-menu-line" aria-label="SideBarMenu" />
-          <Breadcrumb :home="home" :model="items">
-            <template #item="{ item, props }">
-              <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a :href="href" v-bind="props.action" @click="navigate">
-                  <span :class="[item.icon, 'text-color']" />
-                  <span class="text-primary font-semibold">{{ item.label }}</span>
-                </a>
-              </router-link>
-              <a v-else :href="item.url" :target="item.target" v-bind="props.action">
-                <span class="text-surface-700 dark:text-surface-0/80">{{ item.label }}</span>
+  <Menubar class="h-[--topbar-height] rounded-none border-0 border-b-2 z-50">
+    <template #start>
+      <div class="flex items-center">
+        <Button
+          class="w-10 h-10"
+          icon="ri-menu-line"
+          aria-label="SideBarMenu"
+          @click="showSidebar"
+        />
+        <Breadcrumb :home="home" :model="items">
+          <template #item="{ item, props }">
+            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+              <a :href="href" v-bind="props.action" @click="navigate">
+                <span :class="[item.icon, 'text-color']" />
+                <span
+                  :class="$route.fullPath == item.route ? 'text-primary' : ''"
+                  class="font-semibold"
+                  >{{ item.label }}</span
+                >
               </a>
-            </template>
-          </Breadcrumb>
-        </div>
-      </template>
-      <template #end>
-        <div class="flex items-center gap-2">
-          <Avatar
-            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-            shape="circle"
-            @click="toggle"
-          />
-          <Menu ref="menu" id="overlay_menu" :model="userItems" :popup="true" />
-        </div>
-      </template>
-    </Menubar>
-  </div>
+            </router-link>
+            <a v-else :href="item.url" :target="item.target" v-bind="props.action">
+              <span class="text-surface-700 dark:text-surface-0/80">{{ item.label }}</span>
+            </a>
+          </template>
+        </Breadcrumb>
+      </div>
+    </template>
+    <template #end>
+      <div class="flex items-center gap-2">
+        <Avatar
+          image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+          shape="circle"
+          @click="toggle"
+        />
+        <Menu ref="menu" id="overlay_menu" :model="userItems" :popup="true" />
+      </div>
+    </template>
+  </Menubar>
 </template>
 
 <style scoped></style>

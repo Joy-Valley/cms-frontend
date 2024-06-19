@@ -2,6 +2,6 @@
 
 <template>
   <div class="w-full">
-    <router-view></router-view>
+    <MyArticlesList />
   </div>
 </template>

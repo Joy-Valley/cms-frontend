@@ -1,14 +1,23 @@
 <script lang="ts" setup>
 import MySideBar from '@/components/MySideBar.vue'
 import MyTopBar from '@/components/MyTopBar.vue'
+import { ref } from 'vue'
+const isExpandedSidebar = ref(true)
+const isExpandedSidebarDrawer = ref(false)
 </script>
 
 <template>
-  <main>
-    <MySideBar class="hidden lg:block fixed top-0 left-0 h-full w-[--sidebar-width] border-r" />
-    <MyTopBar class="z-50 fixed left-0 lg:left-[--sidebar-width] top-0 right-0" />
-    <div class="lg:ml-[--sidebar-width] mt-[--topbar-height] p-4">
-      <router-view />
+  <main class="flex h-screen min-w-0">
+    <MySideBar
+      v-model="isExpandedSidebar"
+      v-model:isExpandedSidebarDrawer="isExpandedSidebarDrawer"
+    />
+    <div class="flex flex-col min-w-0 flex-1 h-full bg-neutral-100">
+      <MyTopBar
+        v-model="isExpandedSidebar"
+        v-model:isExpandedSidebarDrawer="isExpandedSidebarDrawer"
+      />
+      <router-view class="p-4 overflow-auto" />
     </div>
   </main>
 </template>

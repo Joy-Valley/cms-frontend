@@ -4,6 +4,7 @@ import ArticlesView from '@/views/ArticlesView.vue'
 import LoginView from '@/views/LoginView.vue'
 import { useUserStore } from '@/stores/user'
 import ArticleCreateView from '@/views/ArticleCreateView.vue'
+import ArticlesListView from '@/views/ArticlesListView.vue'
 import CategoryView from '@/views/CategoryView.vue'
 import TagView from '@/views/TagView.vue'
 
@@ -23,15 +24,24 @@ const router = createRouter({
       path: '/articles',
       name: '文章管理',
       component: ArticlesView,
+      redirect: '/articles/list',
       meta: {
         layout: 'default'
-      }
+      },
+      children: [
+        {
+          path: '/articles/list',
+          name: '文章列表',
+          component: ArticlesListView
+        },
+        {
+          path: '/articles/create',
+          name: '创建文章',
+          component: ArticleCreateView
+        }
+      ]
     },
-    {
-      path: '/articles/create',
-      name: '创建文章',
-      component: ArticleCreateView
-    },
+
     {
       path: '/category',
       name: '分类管理',

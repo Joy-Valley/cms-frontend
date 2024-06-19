@@ -29,6 +29,13 @@ app.use(PrimeVue, {
         order: 'tailwind-base, primevue, tailwind-utilities'
       }
     }
+  },
+  pt: {
+    datatable: {
+      mask: {
+        class: '!absolute'
+      }
+    }
   }
 })
 app.use(ToastService)
