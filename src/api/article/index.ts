@@ -68,5 +68,17 @@ export const articleApi = {
     return service.post(`/api/v1/article/remove`, {
       ids
     })
+  },
+  /**
+   * 通过id更新状态
+   * @function updateStatus
+   * @param {number} id
+   * @param {string} status
+   * @returns {Promise<any>} 返回一个Promise，其解析为更新状态的响应
+   */
+  updateStatus(id: number, status: string): Promise<any> {
+    return service.post(`/api/v1/article/update/status/${id}`, {
+      status
+    })
   }
 }

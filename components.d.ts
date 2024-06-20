@@ -20,6 +20,7 @@ declare module 'vue' {
     FloatLabel: typeof import('primevue/floatlabel')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
+    InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MarkdownEditor: typeof import('./src/components/markdown/MarkdownEditor.vue')['default']
     MarkdownViewer: typeof import('./src/components/markdown/MarkdownViewer.vue')['default']

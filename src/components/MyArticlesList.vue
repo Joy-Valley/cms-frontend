@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { articleApi } from '@/api/article'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
+import Select from 'primevue/select'
 
 import { FilterMatchMode } from '@primevue/core/api'
 
@@ -193,6 +194,39 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString()
 }
 
+//获取Tag的颜色
+const getSeverity = (status) => {
+  switch (status) {
+    case 'published':
+      return 'success'
+    case 'draft':
+      return 'warn'
+    case 'pending':
+      return 'info'
+    case 'locked':
+      return 'secondary'
+    default:
+      return 'info'
+  }
+}
+
+const statuses = ref(['published', 'draft', 'pending', 'locked'])
+const statusUpdate = (value, articleId) => {
+  articleApi
+    .updateStatus(articleId, value)
+    .then(() => {
+      toast.add({ severity: 'success', summary: '成功', detail: '更新成功', life: 3000 })
+    })
+    .catch((error) => {
+      toast.add({
+        severity: 'error',
+        summary: '错误',
+        detail: (error.response && error.response.data.message) || error.message,
+        life: 3000
+      })
+    })
+}
+
 // 初始化筛选条件
 initFilters()
 </script>
@@ -364,7 +398,12 @@ initFilters()
       <Column field="tags" header="标签" sortable :showFilterMatchModes="false" class="min-w-32">
         <template #body="{ data }">
           <div class="flex gap-2">
-            <Tag v-for="tag in data.tags" :key="tag.tag_id" :value="tag.tag_name" />
+            <Tag
+              v-for="tag in data.tags"
+              severity="secondary"
+              :key="tag.tag_id"
+              :value="tag.tag_name"
+            />
           </div>
         </template>
         <template #filter="{ filterModel }">
@@ -386,10 +425,44 @@ initFilters()
         <template #body="{ data }">
           <div class="flex gap-2">
             <Tag
+              severity="secondary"
               v-for="categories in data.categories"
               :key="categories.category_id"
               :value="categories.category_name"
             />
+          </div>
+        </template>
+        <template #filter="{ filterModel }">
+          <InputText
+            v-model="filterModel.value"
+            type="text"
+            class="p-column-filter"
+            placeholder="搜索关键字"
+          />
+        </template>
+      </Column>
+      <Column
+        field="categories"
+        header="状态"
+        sortable
+        :showFilterMatchModes="false"
+        class="min-w-32"
+      >
+        <template #body="{ data }">
+          <div class="flex gap-2">
+            <Select
+              :options="statuses"
+              placeholder="Select One"
+              v-model="data.article_status"
+              @update:modelValue="statusUpdate($event, data.article_id)"
+            >
+              <template #value="{ value }">
+                <Tag :value="value" :severity="getSeverity(value)" />
+              </template>
+              <template #option="slotProps">
+                <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
+              </template>
+            </Select>
           </div>
         </template>
         <template #filter="{ filterModel }">
