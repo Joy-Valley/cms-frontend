@@ -53,6 +53,9 @@ const handleChange = (v: string) => {
 
 // 设置整个编辑器的高度
 .bytemd {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 300px);
+}
+.bytemd-fullscreen {
+  z-index: 60;
 }
 </style>
