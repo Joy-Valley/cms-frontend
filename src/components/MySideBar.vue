@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Drawer from 'primevue/drawer'
 
 const model = defineModel<boolean>({ default: true })
 const isExpandedSidebarDrawer = defineModel<boolean>('isExpandedSidebarDrawer', { default: true })
@@ -48,7 +47,6 @@ const items = ref([
     }
   ]
 ])
-
 const customDT = ref({
   panelBorderWidth: 0,
   panelFirstBorderWidth: 0,
@@ -121,7 +119,15 @@ const customDT = ref({
     </div>
   </div>
   <div>
-    <Drawer v-model:visible="isExpandedSidebarDrawer" header="Drawer" class="!w-[--sidebar-width]">
+    <Drawer
+      v-model:visible="isExpandedSidebarDrawer"
+      header="Drawer"
+      class="!w-[--sidebar-width]"
+      :pt="{
+        header: { class: 'p-0' },
+        content: { class: 'p-0' }
+      }"
+    >
       <template #header>
         <div class="h-[--topbar-height] flex items-center gap-4 p-3">
           <svg
