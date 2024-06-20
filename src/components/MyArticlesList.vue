@@ -452,15 +452,18 @@ initFilters()
           <div class="flex gap-2">
             <Select
               :options="statuses"
-              placeholder="Select One"
               v-model="data.article_status"
               @update:modelValue="statusUpdate($event, data.article_id)"
             >
               <template #value="{ value }">
-                <Tag :value="value" :severity="getSeverity(value)" />
+                <Tag class="h-6" :value="value" :severity="getSeverity(value)" />
               </template>
               <template #option="slotProps">
-                <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
+                <Tag
+                  class="h-6"
+                  :value="slotProps.option"
+                  :severity="getSeverity(slotProps.option)"
+                />
               </template>
             </Select>
           </div>
