@@ -2,6 +2,7 @@
 import MarkdownEditor from '@/components/markdown/MarkdownEditor.vue'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
+import Select from 'primevue/select'
 
 import { CategoryAPI } from '@/api/category'
 import * as yup from 'yup'
@@ -43,7 +44,8 @@ const schema = yup.object({
   description: yup.string().required('必填'),
   categoryIds: yup.array().min(1, '至少选择一个分类'),
   tagIds: yup.array().min(1, '至少选择一个标签'),
-  content: yup.string().required('必填')
+  content: yup.string().required('必填'),
+  status: yup.string().required('必填')
 })
 
 /**
@@ -57,7 +59,8 @@ const { defineField, handleSubmit, errors } = useForm({
     description: '',
     categoryIds: [],
     tagIds: [],
-    content: ''
+    content: '',
+    status: ''
   }
 })
 const [title] = defineField('title')
@@ -65,6 +68,7 @@ const [description] = defineField('description')
 const [categoryIds] = defineField('categoryIds')
 const [tagIds] = defineField('tagIds')
 const [content] = defineField('content')
+const [status] = defineField('status')
 
 /**
  * 处理表单提交
@@ -82,6 +86,24 @@ const onSubmit = handleSubmit(async (values) => {
     })
   isLoading.value = false
 })
+
+//获取Tag的颜色
+const getSeverity = (status: string) => {
+  switch (status) {
+    case 'published':
+      return 'success'
+    case 'draft':
+      return 'warn'
+    case 'pending':
+      return 'info'
+    case 'locked':
+      return 'secondary'
+    default:
+      return 'info'
+  }
+}
+
+const statuses = ref(['draft', 'pending'])
 </script>
 
 <template>
@@ -107,6 +129,55 @@ const onSubmit = handleSubmit(async (values) => {
         :class="errors.content ? 'box-content border border-red-500' : ''"
       />
       <div class="flex w-full my-8 gap-4">
+        <FloatLabel class="basis-1/3">
+          <MultiSelect
+            :disabled="categoryDisabled"
+            display="chip"
+            :showToggleAll="false"
+            v-model="categoryIds"
+            :options="categoryOptions"
+            optionLabel="category_name"
+            optionValue="category_id"
+            :selectionLimit="3"
+            filter
+            class="w-full"
+            :invalid="!!errors.categoryIds"
+          />
+          <label :class="errors.categoryIds ? 'text-red-500' : ''">分类</label>
+        </FloatLabel>
+        <FloatLabel class="basis-1/3">
+          <MultiSelect
+            :disabled="tagDisabled"
+            display="chip"
+            :showToggleAll="false"
+            v-model="tagIds"
+            :options="tagOptions"
+            optionLabel="tag_name"
+            optionValue="tag_id"
+            :selectionLimit="3"
+            filter
+            class="w-full"
+            :invalid="!!errors.tagIds"
+          />
+          <label :class="errors.tagIds ? 'text-red-500' : ''">标签</label>
+        </FloatLabel>
+        <FloatLabel class="basis-1/3">
+          <Select class="w-full" :options="statuses" :invalid="!!errors.status" v-model="status">
+            <template #value="{ value }">
+              <Tag v-if="value" class="h-6" :value="value" :severity="getSeverity(value)" />
+            </template>
+            <template #option="slotProps">
+              <Tag
+                class="h-6"
+                :value="slotProps.option"
+                :severity="getSeverity(slotProps.option)"
+              />
+            </template>
+          </Select>
+          <label :class="errors.status ? 'text-red-500' : ''">状态</label>
+        </FloatLabel>
+      </div>
+      <div class="flex w-full my-8 gap-4">
         <FloatLabel class="basis-1/2 flex-shrink-0">
           <Textarea
             v-model="description"
@@ -118,40 +189,6 @@ const onSubmit = handleSubmit(async (values) => {
           />
           <label :class="errors.description ? 'text-red-500' : ''">简介</label>
         </FloatLabel>
-        <div class="basis-1/2 flex flex-col gap-10">
-          <FloatLabel>
-            <MultiSelect
-              :disabled="categoryDisabled"
-              display="chip"
-              :showToggleAll="false"
-              v-model="categoryIds"
-              :options="categoryOptions"
-              optionLabel="category_name"
-              optionValue="category_id"
-              :selectionLimit="3"
-              filter
-              class="w-full"
-              :invalid="!!errors.categoryIds"
-            />
-            <label :class="errors.categoryIds ? 'text-red-500' : ''">分类</label>
-          </FloatLabel>
-          <FloatLabel>
-            <MultiSelect
-              :disabled="tagDisabled"
-              display="chip"
-              :showToggleAll="false"
-              v-model="tagIds"
-              :options="tagOptions"
-              optionLabel="tag_name"
-              optionValue="tag_id"
-              :selectionLimit="3"
-              filter
-              class="w-full"
-              :invalid="!!errors.tagIds"
-            />
-            <label :class="errors.tagIds ? 'text-red-500' : ''">标签</label>
-          </FloatLabel>
-        </div>
       </div>
     </form>
   </div>
