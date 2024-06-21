@@ -271,18 +271,15 @@ initFilters()
             @click="clearFilter()"
           />
           <div class="flex gap-1">
-            <span class="relative">
-              <i
-                class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-              />
+            <IconField>
+              <InputIcon class="pi pi-search" />
               <InputText
                 @change="onFilter()"
                 @keydown.enter="onFilter()"
-                v-model="filters.global.value"
                 placeholder="搜索关键字"
-                class="pl-10 font-normal"
+                v-model="filters.global.value"
               />
-            </span>
+            </IconField>
             <Button
               label="发布文章"
               icon="pi pi-plus-circle"
