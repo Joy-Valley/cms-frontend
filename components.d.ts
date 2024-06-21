@@ -36,6 +36,7 @@ declare module 'vue' {
     MySideBar: typeof import('./src/components/MySideBar.vue')['default']
     MyTagList: typeof import('./src/components/MyTagList.vue')['default']
     MyTopBar: typeof import('./src/components/MyTopBar.vue')['default']
+    MyUserList: typeof import('./src/components/MyUserList.vue')['default']
     PanelMenu: typeof import('primevue/panelmenu')['default']
     Password: typeof import('primevue/password')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

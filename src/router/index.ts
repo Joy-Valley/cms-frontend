@@ -7,6 +7,7 @@ import ArticleCreateView from '@/views/ArticleCreateView.vue'
 import ArticlesListView from '@/views/ArticlesListView.vue'
 import CategoryView from '@/views/CategoryView.vue'
 import TagView from '@/views/TagView.vue'
+import UserView from '@/views/UserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,6 +55,14 @@ const router = createRouter({
       path: '/tag',
       name: '标签管理',
       component: TagView,
+      meta: {
+        layout: 'default'
+      }
+    },
+    {
+      path: '/user',
+      name: '用户管理',
+      component: UserView,
       meta: {
         layout: 'default'
       }

@@ -9,3 +9,17 @@ export interface LoginRequest {
   password: string
   [property: string]: any
 }
+
+/**
+ * 用户列表请求
+ * @interface UserListRequest
+ */
+export interface UserListRequest {
+  gender?: string
+  pageNo?: string
+  pageSize?: string
+  role?: string
+  status?: string
+  username?: string
+  [property: string]: any
+}
