@@ -52,11 +52,11 @@ export const CategoryAPI = {
   },
   /**
    * 通过数组删除分类
-   * @function remove
+   * @function removeList
    * @param {[id: number]} ids
    * @returns {Promise<any>} 返回一个Promise，其解析为删除分类的响应
    */
-  remove(ids: [id: number]): Promise<any> {
+  removeList(ids: [id: number]): Promise<any> {
     return service.post(`/api/v1/article/category/remove`, {
       ids
     })
