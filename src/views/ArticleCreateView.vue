@@ -51,7 +51,7 @@ const schema = yup.object({
 /**
  * 定义表单字段、处理表单提交和错误信息
  */
-const { defineField, handleSubmit, errors } = useForm({
+const { defineField, handleSubmit, errors, values } = useForm({
   validationSchema: schema,
   validateOnMount: true,
   initialValues: {
@@ -73,7 +73,13 @@ const [status] = defineField('status')
 /**
  * 处理表单提交
  */
-const onSubmit = handleSubmit(async (values) => {
+const onSubmit = async () => {
+  //如果errors.value不为空，说明表单验证不通过
+  if (Object.keys(errors.value).length) {
+    toast.add({ severity: 'error', summary: '错误', detail: '请填写必填字段' })
+    return
+  }
+
   isLoading.value = true
   let body: CreateRequest = { ...values, publicDate: new Date() }
   await articleApi
@@ -85,7 +91,7 @@ const onSubmit = handleSubmit(async (values) => {
       toast.add({ severity: 'error', summary: '错误', detail: '发布文章失败' })
     })
   isLoading.value = false
-})
+}
 
 //获取Tag的颜色
 const getSeverity = (status: string) => {
@@ -108,7 +114,7 @@ const statuses = ref(['draft', 'pending'])
 
 <template>
   <div class="w-full">
-    <form @submit="onSubmit">
+    <form @submit.prevent="onSubmit">
       <div class="flex items-center gap-4">
         <div class="flex-1 my-4">
           <FloatLabel>
@@ -128,8 +134,8 @@ const statuses = ref(['draft', 'pending'])
         v-model="content"
         :class="errors.content ? 'box-content border border-red-500' : ''"
       />
-      <div class="flex w-full my-8 gap-4">
-        <FloatLabel class="basis-1/3">
+      <div class="flex w-full my-8 gap-x-4 gap-y-8 flex-wrap">
+        <FloatLabel>
           <MultiSelect
             :disabled="categoryDisabled"
             display="chip"
@@ -145,7 +151,7 @@ const statuses = ref(['draft', 'pending'])
           />
           <label :class="errors.categoryIds ? 'text-red-500' : ''">分类</label>
         </FloatLabel>
-        <FloatLabel class="basis-1/3">
+        <FloatLabel>
           <MultiSelect
             :disabled="tagDisabled"
             display="chip"
@@ -161,7 +167,7 @@ const statuses = ref(['draft', 'pending'])
           />
           <label :class="errors.tagIds ? 'text-red-500' : ''">标签</label>
         </FloatLabel>
-        <FloatLabel class="basis-1/3">
+        <FloatLabel>
           <Select class="w-full" :options="statuses" :invalid="!!errors.status" v-model="status">
             <template #value="{ value }">
               <Tag v-if="value" class="h-6" :value="value" :severity="getSeverity(value)" />
