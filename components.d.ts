@@ -30,6 +30,7 @@ declare module 'vue' {
     Menubar: typeof import('primevue/menubar')['default']
     Message: typeof import('primevue/message')['default']
     MultiSelect: typeof import('primevue/multiselect')['default']
+    MyArticleEdit: typeof import('./src/components/MyArticleEdit.vue')['default']
     MyArticlesList: typeof import('./src/components/MyArticlesList.vue')['default']
     MyCategoryList: typeof import('./src/components/MyCategoryList.vue')['default']
     MyDashboardCard: typeof import('./src/components/MyDashboardCard.vue')['default']

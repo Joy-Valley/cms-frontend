@@ -11,6 +11,7 @@ import {
   getArticleStatusNameByCode,
   getArticleStatusSeverityByCode
 } from '@/const'
+import MyArticleEdit from '@/components/MyArticleEdit.vue'
 
 const toast = useToast() // useToast() 是 PrimeVue 提供的API
 const confirm = useConfirm()
@@ -145,6 +146,24 @@ const onRowContextMenu = (event) => {
 
 // =====================================================
 // ====结束右键菜单
+// =====================================================
+//
+
+//
+// =====================================================
+// ====开始编辑项目功能
+// =====================================================
+const currentEditItem = ref() //当前编辑的数据
+const editItemDialog = ref(false) //编辑对话框
+
+// 编辑项目
+const editItem = (item) => {
+  currentEditItem.value = { ...item }
+  editItemDialog.value = true
+}
+
+// =====================================================
+// ====结束编辑项目功能
 // =====================================================
 //
 
@@ -482,6 +501,9 @@ initFilters()
         </template>
       </Column>
     </DataTable>
+    <Dialog v-model:visible="editItemDialog" modal maximizable header="编辑文章" class="w-[80rem]">
+      <MyArticleEdit :id="currentEditItem.article_id" v-model:editItemDialog="editItemDialog" />
+    </Dialog>
   </div>
 </template>
 

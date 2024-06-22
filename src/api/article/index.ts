@@ -1,5 +1,5 @@
 import service from '../../utils/service'
-import type { CreateRequest } from './type'
+import type { ArticleUpdateRequest, CreateRequest } from './type'
 
 /**
  * 文章服务模块
@@ -80,5 +80,24 @@ export const articleApi = {
     return service.post(`/api/v1/article/update/status/${id}`, {
       status
     })
+  },
+  /**
+   * 通过id获取文章
+   * @function getArticleById
+   * @param {number} id
+   * @returns {Promise<any>} 返回一个Promise，其解析为更新文章的响应
+   */
+  getArticleById(id: number): Promise<any> {
+    return service.get(`/api/v1/article/${id}`)
+  },
+  /**
+   * 通过id更新文章
+   * @function update
+   * @param {number} id
+   * @param {ArticleUpdateRequest} data
+   * @returns {Promise<any>} 返回一个Promise，其解析为更新文章的响应
+   */
+  update(id: number, data: ArticleUpdateRequest): Promise<any> {
+    return service.post(`/api/v1/article/update/${id}`, data)
   }
 }

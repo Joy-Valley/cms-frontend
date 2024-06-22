@@ -77,3 +77,31 @@ export interface CreateRequest {
   title: string
   [property: string]: any
 }
+
+export interface GetArticleByIdResponseData {
+  article_comment_count: string
+  article_content: string
+  article_description: string
+  article_id: number
+  article_like_count: string
+  article_public_date: string
+  article_status: string
+  article_title: string
+  article_views: string
+  author: Author
+  categories: Category[]
+  cover_src: string
+  create_date: string
+  tags: Tag[]
+  update_date: string
+  [property: string]: any
+}
+
+export interface ArticleUpdateRequest {
+  categoryIds?: number[]
+  content?: string
+  description?: string
+  tagIds?: number[]
+  title?: string
+  [property: string]: any
+}

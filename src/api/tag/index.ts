@@ -36,7 +36,7 @@ export const TagAPI = {
   },
   /**
    * 更新标签
-   * @function update
+   * @function module:articleApi.update
    * @param {number} id
    * @param {string} name
    * @param {string} description
