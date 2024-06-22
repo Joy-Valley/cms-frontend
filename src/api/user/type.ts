@@ -23,3 +23,18 @@ export interface UserListRequest {
   username?: string
   [property: string]: any
 }
+
+/**
+ * 用户创建请求
+ * @interface UserCreateRequest
+ */
+export interface UserCreateRequest {
+  birthdayDate: string | Date
+  email: string
+  gender: number
+  nickName: string
+  password: string
+  phoneNumber: string
+  username: string
+  [property: string]: any
+}

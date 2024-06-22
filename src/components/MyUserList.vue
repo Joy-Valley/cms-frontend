@@ -4,6 +4,7 @@ import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 import { FilterMatchMode } from '@primevue/core/api'
 import { UserAPI } from '@/api/user'
+import { genderOptions, getGenderNameByCode } from '@/const'
 
 const toast = useToast() // useToast() 是 PrimeVue 提供的API
 const confirm = useConfirm()
@@ -135,12 +136,25 @@ const onRowContextMenu = (event) => {
 // ====开始添加项目功能
 // =====================================================
 const addItemDialog = ref(false) //添加对话框
-const currentAddItem = ref({ category_name: '', category_description: '' }) //当前添加的数据
+const currentAddItem = ref({}) //当前添加的数据
 
 //添加项目事件
 const addItem = () => {
-  console.log('addItem')
-  addItemDialog.value = false
+  UserAPI.create(currentAddItem.value)
+    .then(() => {
+      toast.add({ severity: 'success', summary: '成功', detail: '添加成功', life: 3000 })
+      loadLazyData()
+      addItemDialog.value = false
+      currentAddItem.value = {}
+    })
+    .catch((error) => {
+      toast.add({
+        severity: 'error',
+        summary: '错误',
+        detail: (error.response && error.response.data.message) || error.message,
+        life: 3000
+      })
+    })
 }
 // =====================================================
 // ====结束添加项目功能
@@ -217,7 +231,7 @@ initFilters()
       :rows="rows"
       :rowsPerPageOptions="[5, 15, 25, 50]"
       filterDisplay="menu"
-      dataKey="category_id"
+      dataKey="id"
       contextMenu
       v-model:contextMenuSelection="contextMenuSelection"
       @rowContextmenu="onRowContextMenu"
@@ -238,24 +252,15 @@ initFilters()
             @click="clearFilter()"
           />
           <div class="flex gap-1">
-            <span class="relative">
-              <i
-                class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+            <IconField>
+              <InputIcon class="pi pi-search" />
+              <InputText
+                @change="onFilter()"
+                @keydown.enter="onFilter()"
+                placeholder="搜索关键字"
+                v-model="filters.global.value"
               />
-
-              <IconField>
-                <InputIcon>
-                  <i class="pi pi-search" />
-                </InputIcon>
-                <InputText
-                  @change="onFilter()"
-                  @keydown.enter="onFilter()"
-                  placeholder="搜索关键字"
-                  v-model="filters.global.value"
-                  class="pl-10 font-normal"
-                />
-              </IconField>
-            </span>
+            </IconField>
             <Button label="新建用户" icon="pi pi-plus-circle" @click="addItemDialog = true" />
           </div>
         </div>
@@ -265,7 +270,9 @@ initFilters()
       <Column field="username" header="用户名"> </Column>
       <Column field="nickName" header="昵称"> </Column>
       <Column field="email" header="邮箱"> </Column>
-      <Column field="gender" header="性别"> </Column>
+      <Column field="gender" header="性别">
+        <template #body="{ data }"> {{ getGenderNameByCode(data.gender) }} </template>
+      </Column>
       <Column field="phoneNumber" header="手机号"> </Column>
       <Column field="roles" header="权限">
         <template #body="{ data }">
@@ -312,7 +319,16 @@ initFilters()
         </div>
         <div class="flex flex-col gap-2">
           <label>性别</label>
-          <InputText v-model="currentAddItem.gender" required="true" />
+          <Select
+            v-model="currentAddItem.gender"
+            :options="genderOptions"
+            optionLabel="name"
+            optionValue="code"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label>生日</label>
+          <DatePicker v-model="currentAddItem.birthdayDate" />
         </div>
         <div class="flex flex-col gap-2">
           <label>手机号</label>

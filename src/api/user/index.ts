@@ -1,5 +1,5 @@
 import service from '../../utils/service'
-import type { LoginRequest, UserListRequest } from './type'
+import type { LoginRequest, UserCreateRequest, UserListRequest } from './type'
 
 /**
  * 用户服务模块
@@ -11,9 +11,9 @@ export const UserAPI = {
    * @function list
    * @returns {Promise} 返回一个Promise，其解析为用户列表的响应
    */
-  list(UserListRequest: UserListRequest): Promise<any> {
+  list(data: UserListRequest): Promise<any> {
     return service.get('/api/v1/user', {
-      params: UserListRequest
+      params: data
     })
   },
   /**
@@ -37,9 +37,19 @@ export const UserAPI = {
   /**
    * 删除用户
    * @function delete
+   * @param {number} id - 用户ID
    * @returns {Promise} 返回一个Promise，其解析为删除用户的响应
    */
   delete(id: number): Promise<any> {
     return service.delete(`/api/v1/user/${id}`)
+  },
+  /**
+   * 创建用户
+   * @function create
+   * @param {UserCreateRequest} data - 创建用户请求数据
+   * @returns {Promise} 返回一个Promise，其解析为创建用户的响应
+   */
+  create(data: UserCreateRequest): Promise<any> {
+    return service.post('/api/v1/user/create', data)
   }
 }
