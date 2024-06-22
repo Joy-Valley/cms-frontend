@@ -52,7 +52,7 @@ const schema = yup.object({
 /**
  * 定义表单字段、处理表单提交和错误信息
  */
-const { defineField, handleSubmit, errors, values } = useForm({
+const { defineField, errors, values } = useForm({
   validationSchema: schema,
   validateOnMount: true,
   initialValues: {

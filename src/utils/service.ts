@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
-import { baseURL } from '@/config/config'
+import { baseURL } from '@/config'
 
 const service = axios.create({
   baseURL, // 基础URL

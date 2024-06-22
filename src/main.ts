@@ -3,7 +3,7 @@ import 'primeicons/primeicons.css'
 //导入remixicon
 import 'remixicon/fonts/remixicon.css'
 // @ts-ignore
-import { zh_CN } from '@/config/locale'
+import { zh_CN } from '@/locales/zh_CN'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

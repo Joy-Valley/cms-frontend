@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import MySideBar from '@/components/MySideBar.vue'
-import MyTopBar from '@/components/MyTopBar.vue'
+import MySideBar from '@/layout/components/MySideBar.vue'
+import MyTopBar from '@/layout/components/MyTopBar.vue'
 import { ref } from 'vue'
 const isExpandedSidebar = ref(true)
 const isExpandedSidebarDrawer = ref(false)
