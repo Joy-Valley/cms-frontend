@@ -6,6 +6,11 @@ import { useConfirm } from 'primevue/useconfirm'
 import Select from 'primevue/select'
 
 import { FilterMatchMode } from '@primevue/core/api'
+import {
+  articleStatusOptions,
+  getArticleStatusNameByCode,
+  getArticleStatusSeverityByCode
+} from '@/const'
 
 const toast = useToast() // useToast() 是 PrimeVue 提供的API
 const confirm = useConfirm()
@@ -194,23 +199,6 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString()
 }
 
-//获取Tag的颜色
-const getSeverity = (status) => {
-  switch (status) {
-    case 'published':
-      return 'success'
-    case 'draft':
-      return 'warn'
-    case 'pending':
-      return 'info'
-    case 'locked':
-      return 'secondary'
-    default:
-      return 'info'
-  }
-}
-
-const statuses = ref(['published', 'draft', 'pending', 'locked'])
 const statusUpdate = (value, articleId) => {
   articleApi
     .updateStatus(articleId, value)
@@ -448,18 +436,24 @@ initFilters()
         <template #body="{ data }">
           <div class="flex gap-2">
             <Select
-              :options="statuses"
+              :options="articleStatusOptions"
               v-model="data.article_status"
+              optionLabel="name"
+              optionValue="code"
               @update:modelValue="statusUpdate($event, data.article_id)"
             >
               <template #value="{ value }">
-                <Tag class="h-6" :value="value" :severity="getSeverity(value)" />
+                <Tag
+                  class="h-6"
+                  :value="getArticleStatusNameByCode(value)"
+                  :severity="getArticleStatusSeverityByCode(value)"
+                />
               </template>
               <template #option="slotProps">
                 <Tag
                   class="h-6"
-                  :value="slotProps.option"
-                  :severity="getSeverity(slotProps.option)"
+                  :value="slotProps.option.name"
+                  :severity="getArticleStatusSeverityByCode(slotProps.option.code)"
                 />
               </template>
             </Select>

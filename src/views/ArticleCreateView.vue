@@ -10,6 +10,7 @@ import { TagAPI } from '@/api/tag'
 import { useToast } from 'primevue/usetoast'
 import { articleApi } from '@/api/article'
 import type { CreateRequest } from '@/api/article/type'
+import { getArticleStatusNameByCode, getArticleStatusSeverityByCode } from '@/const'
 
 const toast = useToast()
 const isLoading = ref(false)
@@ -93,23 +94,10 @@ const onSubmit = async () => {
   isLoading.value = false
 }
 
-//获取Tag的颜色
-const getSeverity = (status: string) => {
-  switch (status) {
-    case 'published':
-      return 'success'
-    case 'draft':
-      return 'warn'
-    case 'pending':
-      return 'info'
-    case 'locked':
-      return 'secondary'
-    default:
-      return 'info'
-  }
-}
-
-const statuses = ref(['draft', 'pending'])
+const statuses = [
+  { name: '草稿', code: 'draft' },
+  { name: '审核中', code: 'pending' }
+]
 </script>
 
 <template>
@@ -167,16 +155,28 @@ const statuses = ref(['draft', 'pending'])
           />
           <label :class="errors.tagIds ? 'text-red-500' : ''">标签</label>
         </FloatLabel>
-        <FloatLabel>
-          <Select class="w-full" :options="statuses" :invalid="!!errors.status" v-model="status">
+        <FloatLabel class="min-w-32">
+          <Select
+            class="w-full"
+            :options="statuses"
+            optionLabel="name"
+            optionValue="code"
+            :invalid="!!errors.status"
+            v-model="status"
+          >
             <template #value="{ value }">
-              <Tag v-if="value" class="h-6" :value="value" :severity="getSeverity(value)" />
+              <Tag
+                class="h-6"
+                v-if="value"
+                :value="getArticleStatusNameByCode(value)"
+                :severity="getArticleStatusSeverityByCode(value)"
+              />
             </template>
             <template #option="slotProps">
               <Tag
                 class="h-6"
-                :value="slotProps.option"
-                :severity="getSeverity(slotProps.option)"
+                :value="slotProps.option.name"
+                :severity="getArticleStatusSeverityByCode(slotProps.option.code)"
               />
             </template>
           </Select>
