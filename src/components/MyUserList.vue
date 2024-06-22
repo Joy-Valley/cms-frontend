@@ -31,7 +31,15 @@ const loadLazyData = async (event) => {
       totalRecords.value = response.data.total
       loading.value = false
     })
-    .catch((error) => console.error(error))
+    .catch((error) => {
+      toast.add({
+        severity: 'error',
+        summary: '错误',
+        detail: (error.response && error.response.data.message) || error.message,
+        life: 3000
+      })
+      loading.value = false
+    })
 }
 
 // onMounted时初始化分页参数, 加载数据
@@ -225,6 +233,7 @@ initFilters()
       :totalRecords="totalRecords"
       @page="onPage($event)"
       :loading="loading"
+      v-model:filters="filters"
       v-model:selection="selectedItems"
       :value="items.list"
       paginator
