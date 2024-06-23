@@ -67,54 +67,71 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="h-[100vh] w-full flex items-center justify-center">
-    <Card class="h-fit w-[400px]">
+  <div
+    class="h-[100vh] w-full flex items-center justify-center bg-gradient-to-b from-green-100 to-green-200"
+  >
+    <Card class="h-fit w-[400px] shadow-2xl">
       <template #content>
-        <Message v-if="errorMessage" severity="error">{{ errorMessage }}</Message>
-        <form @submit="onSubmit">
-          <div class="mb-4">
-            <label for="email" class="block text-900 font-medium mb-2">邮箱</label>
-            <InputText
-              v-model="email"
-              v-bind="emailAttrs"
-              class="w-full"
-              :invalid="errors.email != null"
-            />
-            <small id="email-help" class="p-error">
-              {{ errors.email }}
-            </small>
+        <div class="flex flex-col gap-5">
+          <div class="flex items-center justify-center gap-2 pb-4 border-b-2">
+            <div class="w-8 h-8">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20 22H4C3.44772 22 3 21.5523 3 21V8H21V21C21 21.5523 20.5523 22 20 22ZM21 6H3V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V6ZM7 11V15H11V11H7ZM7 17V19H17V17H7ZM13 12V14H17V12H13Z"
+                ></path>
+              </svg>
+            </div>
+
+            <div class="text-2xl font-medium line-clamp-1">JV-CMS 登录</div>
           </div>
-          <div class="mb-4 w-full">
-            <label for="password1" class="block text-900 font-medium mb-2">密码</label>
-            <Password
-              v-model="password"
-              v-bind="passwordAttrs"
-              class="w-full"
-              :feedback="false"
-              inputClass="w-full"
-              :invalid="errors.password != null"
-            />
-            <small id="password-help" class="p-error">
-              {{ errors.password }}
-            </small>
+          <div>
+            <Message v-if="errorMessage" severity="error" class="my-4">{{ errorMessage }}</Message>
+            <form @submit="onSubmit">
+              <div class="mb-4">
+                <label for="email" class="block text-900 font-medium mb-2">邮箱</label>
+                <InputText
+                  v-model="email"
+                  v-bind="emailAttrs"
+                  class="w-full"
+                  :invalid="errors.email != null"
+                />
+                <small id="email-help" class="p-error">
+                  {{ errors.email }}
+                </small>
+              </div>
+              <div class="mb-4 w-full">
+                <label for="password1" class="block text-900 font-medium mb-2">密码</label>
+                <Password
+                  v-model="password"
+                  v-bind="passwordAttrs"
+                  class="w-full"
+                  :feedback="false"
+                  inputClass="w-full"
+                  :invalid="errors.password != null"
+                />
+                <small id="password-help" class="p-error">
+                  {{ errors.password }}
+                </small>
+              </div>
+              <div class="mb-4">
+                <Checkbox
+                  v-model="userStore.isRemember"
+                  id="remember"
+                  :binary="true"
+                  class="mr-2"
+                ></Checkbox>
+                <label for="remember">记住登录</label>
+              </div>
+              <Button
+                :loading="loading"
+                label="登录"
+                type="submit"
+                icon="pi pi-user"
+                class="w-full"
+              ></Button>
+            </form>
           </div>
-          <div class="mb-4">
-            <Checkbox
-              v-model="userStore.isRemember"
-              id="remember"
-              :binary="true"
-              class="mr-2"
-            ></Checkbox>
-            <label for="remember">记住登录</label>
-          </div>
-          <Button
-            :loading="loading"
-            label="登录"
-            type="submit"
-            icon="pi pi-user"
-            class="w-full"
-          ></Button>
-        </form>
+        </div>
       </template>
     </Card>
   </div>

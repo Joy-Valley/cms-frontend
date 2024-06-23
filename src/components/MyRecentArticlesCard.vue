@@ -24,7 +24,7 @@ const items = ref<Data>()
         paginator
         :rows="7"
         scrollable
-        scrollHeight="450px"
+        scrollHeight="440px"
       >
         <template #header>
           <div class="flex flex-wrap items-center justify-between gap-2">

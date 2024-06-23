@@ -53,7 +53,7 @@ async function fetchDashboardItems() {
       class="col-span-12 md:col-span-6 xl:col-span-3 h-[--dashboard-card-height]"
     />
     <MyRecentArticlesCard
-      class="col-span-12 xl:col-span-9 row-span-4 h-[calc((var(--dashboard-card-height)+1rem)*4)]"
+      class="col-span-12 xl:col-span-9 row-span-4 h-[calc((var(--dashboard-card-height)+1rem)*4)] overflow-auto"
     />
     <MyServerStatusCard />
   </div>
