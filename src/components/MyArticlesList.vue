@@ -277,7 +277,7 @@ initFilters()
             outlined
             @click="clearFilter()"
           />
-          <div class="flex gap-1">
+          <div class="flex gap-1 flex-wrap">
             <IconField>
               <InputIcon class="pi pi-search" />
               <InputText
