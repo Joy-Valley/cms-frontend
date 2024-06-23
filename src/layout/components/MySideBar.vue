@@ -50,6 +50,12 @@ const items = ref([
       label: '用户管理',
       icon: 'ri-user-line',
       route: '/user'
+    },
+    {
+      key: 'userLog',
+      label: '用户日志',
+      icon: 'ri-list-view',
+      route: '/user_log'
     }
   ]
 ])
