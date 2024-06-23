@@ -91,7 +91,7 @@ const customDT = ref({
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route">
               <a
                 v-ripple
-                class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+                class="flex items-center cursor-pointer text-surface-700 px-3 py-2"
                 :href="href"
                 @click="navigate"
               >
@@ -102,7 +102,7 @@ const customDT = ref({
             <a
               v-else
               v-ripple
-              class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+              class="flex items-center cursor-pointer text-surface-700 px-3 py-2"
               :href="item.url"
               :target="item.target"
             >
@@ -162,7 +162,7 @@ const customDT = ref({
               <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route">
                 <a
                   v-ripple
-                  class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+                  class="flex items-center cursor-pointer text-surface-700"
                   :href="href"
                   @click="navigate"
                 >
@@ -173,7 +173,7 @@ const customDT = ref({
               <a
                 v-else
                 v-ripple
-                class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0/80 px-3 py-2"
+                class="flex items-center cursor-pointer text-surface-700 px-3 py-2"
                 :href="item.url"
                 :target="item.target"
               >

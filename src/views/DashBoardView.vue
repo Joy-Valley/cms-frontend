@@ -3,6 +3,7 @@ import MyDashboardCard from '@/components/MyDashboardCard.vue'
 import MyRecentArticlesCard from '@/components/MyRecentArticlesCard.vue'
 import { articleApi } from '@/api/article'
 import { onMounted, ref } from 'vue'
+import MyServerStatusCard from '@/components/MyServerStatusCard.vue'
 
 const DashboardItems = ref<
   {
@@ -13,6 +14,7 @@ const DashboardItems = ref<
 >([])
 
 onMounted(async () => {
+  await fetchDashboardItems()
   await fetchDashboardItems()
 })
 
@@ -48,8 +50,11 @@ async function fetchDashboardItems() {
       :title="item.title"
       :icon="item.icon"
       :content="item.content"
-      class="col-span-12 md:col-span-6 xl:col-span-3"
+      class="col-span-12 md:col-span-6 xl:col-span-3 h-[--dashboard-card-height]"
     />
-    <MyRecentArticlesCard />
+    <MyRecentArticlesCard
+      class="col-span-12 xl:col-span-9 row-span-4 h-[calc((var(--dashboard-card-height)+1rem)*4)]"
+    />
+    <MyServerStatusCard />
   </div>
 </template>

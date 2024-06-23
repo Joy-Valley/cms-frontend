@@ -78,7 +78,7 @@ const showSidebar = () => {
               </a>
             </router-link>
             <a v-else :href="item.url" :target="item.target" v-bind="props.action">
-              <span class="text-surface-700 dark:text-surface-0/80">{{ item.label }}</span>
+              <span class="text-surface-700">{{ item.label }}</span>
             </a>
           </template>
         </Breadcrumb>

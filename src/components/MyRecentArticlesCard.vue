@@ -16,12 +16,19 @@ const items = ref<Data>()
 </script>
 
 <template>
-  <Card class="col-span-12 xl:col-span-6">
+  <Card>
     <template #content>
-      <DataTable v-if="items" :value="items.list" paginator :rows="7">
+      <DataTable
+        v-if="items"
+        :value="items.list"
+        paginator
+        :rows="7"
+        scrollable
+        scrollHeight="450px"
+      >
         <template #header>
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xl text-surface-900 dark:text-surface-0 font-bold">最近文章</span>
+            <span class="text-xl text-surface-900 font-bold">最近文章</span>
           </div>
         </template>
         <Column header="封面">
@@ -34,13 +41,15 @@ const items = ref<Data>()
           </template>
         </Column>
         <Column field="article_title" header="标题"></Column>
-        <Column field="article_description" header="简介">
+        <Column field="article_description" header="简介" class="max-w-80">
           <template #body="{ data }">
             <span class="line-clamp-2">
               {{ data.article_description }}
             </span>
           </template>
         </Column>
+        <Column field="article_like_count" header="点赞量"></Column>
+        <Column field="article_views" header="浏览量"></Column>
       </DataTable>
     </template>
   </Card>

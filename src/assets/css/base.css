@@ -1,6 +1,7 @@
 :root {
   --sidebar-width: 15rem; /* 侧边栏宽度240px */
   --topbar-height: 4rem; /* 顶部导航栏高度64px */
+  --dashboard-card-height: 8.5rem; /* 顶部导航栏高度64px */
 }
 
 body {
