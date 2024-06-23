@@ -168,7 +168,7 @@ const customDT = ref({
               <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route">
                 <a
                   v-ripple
-                  class="flex items-center cursor-pointer text-surface-700"
+                  class="flex items-center cursor-pointer text-surface-700 px-3 py-2"
                   :href="href"
                   @click="navigate"
                 >
