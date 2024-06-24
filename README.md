@@ -1,43 +1,15 @@
-# cms-frontend
+# JV-CMS内容管理系统
 
-This template should help get you started developing with Vue 3 in Vite.
+一款开源的响应式内容管理系统
 
-## Recommended IDE Setup
+采用前端工程化模式，基于 TypeScript + Vue3 + Pinia + PrimeVue v4 + Tailwind CSS开发。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+提供了完整的内容管理功能，包括文章、页面、分类、标签、用户等。
 
-## Type Support for `.vue` Imports in TS
+采用GPL3协议开源，您可以在自己的服务器上部署，也可以在本地搭建测试环境，从而了解CMS的实现原理。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+本系统的开发目标是简单、易用、完全响应式，希望可以帮助开发者快速搭建内容管理系统，实现自己的业务逻辑。
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
-
-## License
+本系统的开发文档、部署文档、API文档等都会在Github和Gitee上更新，欢迎大家贡献代码、提交Issue、提出建议。
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
