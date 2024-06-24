@@ -88,7 +88,7 @@ const customDT = ref({
         :key="index"
         v-model:expandedKeys="expandedKeys"
         :model="item"
-        class="w-full gap-0 border-b-2"
+        class="w-full !gap-0 border-b-2"
         :dt="customDT"
         multiple
       >
@@ -127,8 +127,8 @@ const customDT = ref({
       header="Drawer"
       class="!w-[--sidebar-width]"
       :pt="{
-        header: { class: 'p-0' },
-        content: { class: 'p-0' }
+        header: { class: '!p-0' },
+        content: { class: '!p-0' }
       }"
     >
       <template #header>
@@ -149,7 +149,7 @@ const customDT = ref({
           :key="index"
           v-model:expandedKeys="expandedKeys"
           :model="item"
-          class="w-full gap-0 border-b-2"
+          class="w-full !gap-0 border-b-2"
           :dt="customDT"
           multiple
         >
